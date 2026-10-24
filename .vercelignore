@@ -1,6 +1,5 @@
 .env*
 !.env.example
-scripts/
-supabase/
-*.md
-!README.md
+/scripts/
+/supabase/
+/docs/
