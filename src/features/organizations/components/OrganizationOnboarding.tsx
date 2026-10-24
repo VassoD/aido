@@ -49,7 +49,7 @@ export function OrganizationOnboarding(): React.ReactElement {
   return (
     <section className={`${CARD} flex flex-col gap-4`}>
       <div>
-        <h2 className="font-display text-2xl font-semibold text-ink">{t("title")}</h2>
+        <h2 className="display-title text-2xl leading-tight text-ink">{t("title")}</h2>
         <p className="mt-1 text-muted">{t("lede")}</p>
       </div>
       <form
@@ -84,9 +84,9 @@ export function OrganizationOnboarding(): React.ReactElement {
       )}
 
       {found && (
-        <div className="flex flex-col gap-3 rounded-xl bg-sage-soft p-4">
+        <div className="flex flex-col gap-3 rounded-xl bg-leaf-soft p-4">
           <p className="text-sm text-muted">{found.isDemo ? t("demoFound") : t("found")}</p>
-          <p className="font-display text-xl font-semibold text-ink">{found.name}</p>
+          <p className="display-title text-xl leading-tight text-ink">{found.name}</p>
           <p className="text-sm text-text">
             {[found.city, found.postalCode].filter(Boolean).join(" ")}
             {found.isDemo ? "" : `${found.rna ? ` (RNA ${found.rna})` : ""} SIREN ${found.siren}`}

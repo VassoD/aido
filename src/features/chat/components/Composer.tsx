@@ -3,6 +3,8 @@
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 
+import { PRIMARY_BUTTON, SECONDARY_BUTTON } from "@/features/ui/styles";
+
 const MAX_MESSAGE_LENGTH = 1_500;
 
 interface ComposerProps {
@@ -31,7 +33,7 @@ export function Composer({ isBusy, variant, onSend, onStop }: ComposerProps): Re
         event.preventDefault();
         submit();
       }}
-      className={`flex items-end gap-2 rounded-3xl border-2 bg-surface p-2 transition-[border-color,box-shadow] focus-within:border-ink focus-within:shadow-[0_0_0_4px_var(--marigold-soft)] ${
+      className={`flex items-end gap-2 rounded-[1.6rem] border-2 bg-card p-2 shadow-[0_18px_40px_-24px_rgb(18_38_29/0.55)] transition-[border-color,box-shadow] focus-within:border-ink focus-within:ring-4 focus-within:ring-ink/10 ${
         isHero ? "border-ink" : "border-line"
       }`}
     >
@@ -61,7 +63,7 @@ export function Composer({ isBusy, variant, onSend, onStop }: ComposerProps): Re
         <button
           type="button"
           onClick={onStop}
-          className="shrink-0 rounded-full border border-line px-5 py-2.5 font-semibold text-ink hover:border-ink"
+          className={`${SECONDARY_BUTTON} shrink-0`}
         >
           {t("stop")}
         </button>
@@ -69,7 +71,7 @@ export function Composer({ isBusy, variant, onSend, onStop }: ComposerProps): Re
         <button
           type="submit"
           disabled={!trimmed}
-          className="shrink-0 rounded-full bg-ink px-5 py-2.5 font-semibold text-paper transition-opacity disabled:opacity-40"
+          className={`${PRIMARY_BUTTON} shrink-0`}
         >
           {t("send")}
         </button>

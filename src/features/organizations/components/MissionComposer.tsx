@@ -101,7 +101,7 @@ export function MissionComposer(): React.ReactElement {
           <div className="flex flex-wrap items-center gap-3">
             <label
               htmlFor="mission-pdf"
-              className={`${SECONDARY_BUTTON} cursor-pointer has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-marigold`}
+              className={`${SECONDARY_BUTTON} cursor-pointer has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-sun`}
             >
               <svg aria-hidden="true" viewBox="0 0 20 20" className="mr-2 size-4">
                 <path d="M10 13V3m0 0L6 7m4-4l4 4M4 13v3h12v-3" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -143,7 +143,7 @@ export function MissionComposer(): React.ReactElement {
   return (
     <section className="flex flex-col gap-6">
       <div>
-        <h2 className="font-display text-2xl font-semibold text-ink">{t("reviewTitle")}</h2>
+        <h2 className="display-title text-2xl leading-tight text-ink">{t("reviewTitle")}</h2>
         <p className="mt-1 text-muted">{t("reviewLede")}</p>
       </div>
 
@@ -216,7 +216,7 @@ export function MissionComposer(): React.ReactElement {
 
       <div className={`${CARD} flex flex-col gap-4`}>
         <div>
-          <h3 className="font-display text-xl font-semibold text-ink">{t("questionsTitle")}</h3>
+          <h3 className="display-title text-xl leading-tight text-ink">{t("questionsTitle")}</h3>
           <p className="mt-1 text-sm text-muted">{t("questionsLede")}</p>
         </div>
         <ol className="flex flex-col gap-3">

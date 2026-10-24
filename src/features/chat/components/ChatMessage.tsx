@@ -34,6 +34,7 @@ function TicketList({ items, savedMissions, onApply }: TicketListProps): React.R
           mission={mission}
           reason={reason}
           firstStep={firstStep}
+          rank={index + 1}
           isSaved={savedMissions.isSaved(mission.id)}
           onToggleSave={savedMissions.toggle}
           onApply={onApply}
@@ -99,7 +100,7 @@ export function ChatMessage({ message, savedMissions, onApply, onBeforeSignIn }:
             if (part.state !== "output-available" || part.output.webMissions.length === 0) return null;
             return (
               <section key={key} className="flex flex-col gap-3">
-                <h2 className="font-display text-xl font-semibold text-ink">{t("webHeading")}</h2>
+                <h2 className="display-title text-xl leading-tight text-ink">{t("webHeading")}</h2>
                 <TicketList items={part.output.webMissions} savedMissions={savedMissions} onApply={onApply} />
               </section>
             );

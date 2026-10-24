@@ -98,14 +98,14 @@ export function ApplyDialog({ mission, transcript, onClose, onBeforeSignIn }: Ap
       <div className="flex flex-col gap-5 p-5 sm:p-7">
         <div>
           <p className="text-sm text-muted">{mission.organizationName}</p>
-          <h2 id="apply-title" className="font-display text-2xl leading-snug font-semibold text-ink">
+          <h2 id="apply-title" className="display-title text-2xl leading-tight text-ink">
             {mission.title}
           </h2>
         </div>
 
         {(phase === "checking" || phase === "prefilling") && (
           <p role="status" className="flex items-center gap-2 text-muted">
-            <span className="size-2 animate-pulse rounded-full bg-marigold motion-reduce:animate-none" aria-hidden="true" />
+            <span className="size-2 animate-pulse rounded-full bg-sun motion-reduce:animate-none" aria-hidden="true" />
             {t("prefilling")}
           </p>
         )}
@@ -125,7 +125,7 @@ export function ApplyDialog({ mission, transcript, onClose, onBeforeSignIn }: Ap
               submit();
             }}
           >
-            {wasPrefilled && <p className="rounded-xl bg-marigold-soft px-3.5 py-2.5 text-sm text-text">{t("prefilled")}</p>}
+            {wasPrefilled && <p className="rounded-xl bg-sun-soft px-3.5 py-2.5 text-sm text-text">{t("prefilled")}</p>}
 
             <div className="grid gap-3 sm:grid-cols-2">
               <LabeledInput id="apply-first-name" label={t("firstName")} value={firstName} onChange={setFirstName} autoComplete="given-name" required />
@@ -219,7 +219,7 @@ export function ApplyDialog({ mission, transcript, onClose, onBeforeSignIn }: Ap
 
         {phase === "done" && (
           <div className="flex flex-col gap-4">
-            <p role="status" className="rounded-2xl bg-sage-soft px-4 py-3 text-text">
+            <p role="status" className="rounded-2xl bg-leaf-soft px-4 py-3 text-text">
               {t("done", { organization: mission.organizationName })}
             </p>
             <Link href="/me" className={`${PRIMARY_BUTTON} self-start`}>

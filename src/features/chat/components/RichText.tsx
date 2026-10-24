@@ -33,7 +33,7 @@ export function RichText({ text }: RichTextProps): React.ReactElement {
         const lines = block.split("\n");
         if (lines.every((line) => LIST_ITEM_PATTERN.test(line))) {
           return (
-            <ul key={blockIndex} className="list-disc space-y-1 pl-5 marker:text-marigold">
+            <ul key={blockIndex} className="list-disc space-y-1 pl-5 marker:text-sun">
               {lines.map((line, lineIndex) => (
                 <li key={lineIndex}>{renderInline(line.replace(LIST_ITEM_PATTERN, ""))}</li>
               ))}

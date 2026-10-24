@@ -41,8 +41,8 @@ async function Applicants({ locale, missionId, justPublished }: ApplicantsProps)
       </div>
 
       {justPublished && (
-        <div role="status" className="flex flex-col items-start gap-3 rounded-2xl bg-sage-soft px-5 py-4">
-          <p className="font-display text-xl font-semibold text-ink">{t("publishedTitle")}</p>
+        <div role="status" className="flex flex-col items-start gap-3 rounded-2xl bg-leaf-soft px-5 py-4">
+          <p className="display-title text-xl leading-tight text-ink">{t("publishedTitle")}</p>
           <p className="text-text">
             {result.mission.city ? t("publishedBody", { city: result.mission.city }) : t("publishedBodyNoCity")}
           </p>
@@ -53,7 +53,7 @@ async function Applicants({ locale, missionId, justPublished }: ApplicantsProps)
       )}
 
       <details open={justPublished} className={`${CARD} group`}>
-        <summary className="flex cursor-pointer items-center justify-between gap-3 font-display text-xl font-semibold text-ink">
+        <summary className="flex cursor-pointer items-center justify-between gap-3 display-title text-xl leading-tight text-ink">
           {t("missionTitle")}
           <Chevron className="text-muted" />
         </summary>
@@ -83,7 +83,7 @@ async function Applicants({ locale, missionId, justPublished }: ApplicantsProps)
         </div>
       </details>
 
-      <h2 className="font-display text-2xl font-semibold text-ink">{t("applicationsTitle")}</h2>
+      <h2 className="display-title text-2xl leading-tight text-ink">{t("applicationsTitle")}</h2>
       {result.applicants.length === 0 ? (
         <p className={`${CARD} text-muted`}>{t("empty")}</p>
       ) : (
@@ -92,7 +92,7 @@ async function Applicants({ locale, missionId, justPublished }: ApplicantsProps)
             <li key={applicant.id} className={`${CARD} flex flex-col gap-4`}>
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
-                  <p className="font-display text-xl font-semibold text-ink">
+                  <p className="display-title text-xl leading-tight text-ink">
                     {applicant.volunteer.firstName ?? applicant.volunteer.email}
                   </p>
                   <p className="text-sm text-muted">
@@ -103,7 +103,7 @@ async function Applicants({ locale, missionId, justPublished }: ApplicantsProps)
               </div>
 
               {applicant.fitSummary && (
-                <div className="rounded-xl bg-marigold-soft px-4 py-3">
+                <div className="rounded-xl bg-sun-soft px-4 py-3">
                   <p className="text-sm font-semibold text-ink">{t("fit")}</p>
                   <p className="text-text">{applicant.fitSummary}</p>
                 </div>

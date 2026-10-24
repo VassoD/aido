@@ -1,8 +1,8 @@
 import { useTranslations } from "next-intl";
 
 const STATUS_STYLE: Record<string, string> = {
-  pending: "bg-marigold-soft text-ink",
-  accepted: "bg-sage-soft text-ink",
+  pending: "bg-sun-soft text-ink",
+  accepted: "bg-leaf-soft text-ink",
   declined: "bg-paper text-muted",
   withdrawn: "bg-paper text-muted",
 };

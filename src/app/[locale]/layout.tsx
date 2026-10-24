@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Atkinson_Hyperlegible_Next, Familjen_Grotesk } from "next/font/google";
+import { Atkinson_Hyperlegible_Next, Funnel_Display } from "next/font/google";
 import { notFound } from "next/navigation";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
@@ -8,9 +8,9 @@ import { routing } from "@/i18n/routing";
 
 import "../globals.css";
 
-const familjen = Familjen_Grotesk({
-  variable: "--font-familjen",
-  subsets: ["latin"],
+const funnel = Funnel_Display({
+  variable: "--font-funnel",
+  subsets: ["latin", "latin-ext"],
   weight: "variable",
 });
 
@@ -39,7 +39,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   setRequestLocale(locale);
 
   return (
-    <html lang={locale} className={`${familjen.variable} ${atkinson.variable} h-full antialiased`}>
+    <html lang={locale} className={`${funnel.variable} ${atkinson.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

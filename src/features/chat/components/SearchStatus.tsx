@@ -19,7 +19,7 @@ export function SearchStatus({ state, input, output }: SearchStatusProps): React
     const isRemote = input?.locationMode === "remote";
     return (
       <p className="flex items-center gap-2 text-sm text-muted" role="status">
-        <span className="size-2 animate-pulse rounded-full bg-marigold motion-reduce:animate-none" aria-hidden="true" />
+        <span className="size-2 animate-pulse rounded-full bg-sun motion-reduce:animate-none" aria-hidden="true" />
         {input?.location && !isRemote ? t("runningNear", { place: input.location }) : t("running")}
       </p>
     );
@@ -57,7 +57,7 @@ export function WebSearchStatus({ state, query }: WebSearchStatusProps): React.R
   if (state === "output-error") return null;
   return (
     <p className="flex items-center gap-2 text-sm text-muted" role="status">
-      <span className="size-2 animate-pulse rounded-full bg-sage motion-reduce:animate-none" aria-hidden="true" />
+      <span className="size-2 animate-pulse rounded-full bg-leaf motion-reduce:animate-none" aria-hidden="true" />
       {t("webRunning")}
     </p>
   );

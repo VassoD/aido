@@ -37,10 +37,10 @@ export function SavedPanel({ open, onClose, savedMissions }: SavedPanelProps): R
     >
       <div className="flex h-full flex-col">
         <div className="flex items-center justify-between border-b border-line px-5 py-4">
-          <h2 id="saved-title" className="font-display text-2xl font-semibold text-ink">
+          <h2 id="saved-title" className="display-title text-2xl leading-tight text-ink">
             {t("title")}
           </h2>
-          <button type="button" onClick={onClose} className="rounded-full px-3 py-1.5 text-ink hover:bg-surface">
+          <button type="button" onClick={onClose} className="rounded-full px-3 py-1.5 text-ink hover:bg-card">
             {t("close")}
           </button>
         </div>
@@ -52,8 +52,8 @@ export function SavedPanel({ open, onClose, savedMissions }: SavedPanelProps): R
             {savedMissions.saved.map((mission) => {
               const dates = describeDates(mission.startDate, mission.endDate, locale);
               return (
-                <li key={mission.id} className="rounded-2xl border border-line bg-surface p-4">
-                  <p className="font-display text-lg leading-snug font-semibold text-ink">{mission.title}</p>
+                <li key={mission.id} className="rounded-2xl border border-line bg-card p-4">
+                  <p className="display-title text-lg leading-tight text-ink">{mission.title}</p>
                   <p className="text-sm text-muted">
                     {mission.organizationName}
                     {mission.location?.city ? `, ${mission.location.city}` : ""}

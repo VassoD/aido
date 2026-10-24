@@ -1,5 +1,3 @@
-import type { Commitment } from "@/features/missions/mission";
-
 export type DateRangeKind =
   | { kind: "single"; date: string }
   | { kind: "range"; start: string; end: string }
@@ -29,13 +27,3 @@ export function describeDates(
   if (end) return { kind: "until", date: format.format(end) };
   return { kind: "none" };
 }
-
-export const COMMITMENT_LEVEL: Record<Commitment, number> = {
-  "one-off": 1,
-  "short-term": 2,
-  ongoing: 2,
-  "long-term": 3,
-  unknown: 0,
-};
-
-export const COMMITMENT_SCALE_STEPS = 3;

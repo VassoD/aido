@@ -55,7 +55,7 @@ async function AssociationHome({ locale }: { locale: string }): Promise<React.Re
 
       <section className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <h2 className="font-display text-2xl font-semibold text-ink">{t("dashboard.missions")}</h2>
+          <h2 className="display-title text-2xl leading-tight text-ink">{t("dashboard.missions")}</h2>
           <Link href="/asso/missions/new" className={PRIMARY_BUTTON}>
             {t("dashboard.newMission")}
           </Link>
@@ -70,7 +70,7 @@ async function AssociationHome({ locale }: { locale: string }): Promise<React.Re
                 <div className="flex flex-wrap items-start justify-between gap-2">
                   <Link
                     href={`/asso/missions/${mission.id}`}
-                    className="font-display text-xl leading-snug font-semibold text-ink underline-offset-4 hover:underline"
+                    className="display-title text-xl leading-tight text-ink underline-offset-4 hover:underline"
                   >
                     {mission.title}
                   </Link>
@@ -81,7 +81,7 @@ async function AssociationHome({ locale }: { locale: string }): Promise<React.Re
                 <p className="text-sm text-text">
                   {t("dashboard.applicants", { count: mission.applicantCount })}
                   {mission.pendingCount > 0 && (
-                    <span className="ml-2 rounded-full bg-marigold-soft px-2 py-0.5 font-semibold text-ink">
+                    <span className="ml-2 rounded-full bg-sun-soft px-2 py-0.5 font-semibold text-ink">
                       {t("dashboard.pending", { count: mission.pendingCount })}
                     </span>
                   )}

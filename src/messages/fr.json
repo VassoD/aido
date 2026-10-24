@@ -10,8 +10,8 @@
   },
   "intro": {
     "headline": "Dites-nous comment vous voulez aider. On trouve où.",
-    "lede": "Quelques mots suffisent : où vous êtes, ce que vous aimez ou savez faire, le temps que vous avez. Aido cherche parmi les missions publiées sur JeVeuxAider.gouv.fr et le Service Civique, et ne garde que celles qui vous vont.",
-    "examplesLabel": "Pour commencer, par exemple :",
+    "lede": "Dites-nous où vous êtes, ce que vous aimez et le temps dont vous disposez. On trouve quelques missions qui vous correspondent.",
+    "examplesLabel": "Ou partez d'un exemple",
     "examples": {
       "one": "J'ai le samedi matin de libre à Lyon 7e, j'aime bien les enfants",
       "two": "Je suis comptable à Paris, je veux mettre mes compétences au service d'une asso",
@@ -101,6 +101,12 @@
       "range": "Du {start} au {end}",
       "from": "À partir du {date}",
       "until": "Jusqu'au {date}"
+    },
+    "dateBlock": {
+      "from": "à partir du",
+      "until": "jusqu'au",
+      "anyTime": "Toute l'année",
+      "yourPace": "À votre rythme"
     }
   },
   "saved": {

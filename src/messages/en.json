@@ -10,8 +10,8 @@
   },
   "intro": {
     "headline": "Tell us how you'd like to help. We'll find where.",
-    "lede": "A few words are enough: where you are, what you enjoy or are good at, how much time you have. Aido searches missions published on JeVeuxAider.gouv.fr and Service Civique and keeps only the ones that fit you.",
-    "examplesLabel": "To get started, for example:",
+    "lede": "Tell us where you are, what you enjoy, and how much time you have. We'll find a few missions that fit.",
+    "examplesLabel": "Or start from an example",
     "examples": {
       "one": "I'm free on Saturday mornings in Lyon 7e and I like working with kids",
       "two": "I'm an accountant in Paris and want to put my skills to work for a nonprofit",
@@ -101,6 +101,12 @@
       "range": "{start} to {end}",
       "from": "From {date}",
       "until": "Until {date}"
+    },
+    "dateBlock": {
+      "from": "from",
+      "until": "until",
+      "anyTime": "All year",
+      "yourPace": "At your pace"
     }
   },
   "saved": {

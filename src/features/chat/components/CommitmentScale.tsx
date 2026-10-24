@@ -1,35 +1,37 @@
 import { useTranslations } from "next-intl";
 
-import { COMMITMENT_LEVEL, COMMITMENT_SCALE_STEPS } from "@/features/chat/format-dates";
 import type { Commitment } from "@/features/missions/mission";
 
 interface CommitmentScaleProps {
   commitment: Commitment;
 }
 
-function segmentClass(commitment: Commitment, step: number, level: number): string {
-  if (commitment === "unknown") return "border border-dashed border-muted";
-  if (step >= level) return "bg-line";
-  return commitment === "ongoing" && step === level - 1 ? "bg-marigold opacity-60" : "bg-marigold";
-}
+const DAYS_PER_WEEK = 7;
+const WEEKS_SHOWN = 4;
 
-/** How much a mission asks of you, as a three-step gauge: once, a few weeks, several months. */
+/** Days of a four-week calendar a mission fills: one day, a week, two weeks, or the whole month. */
+const FILLED_DAYS: Record<Commitment, number> = {
+  "one-off": 1,
+  "short-term": DAYS_PER_WEEK,
+  ongoing: DAYS_PER_WEEK * 2,
+  "long-term": DAYS_PER_WEEK * WEEKS_SHOWN,
+  unknown: 0,
+};
+
+/** How much of your month a mission takes, drawn as a tiny calendar. */
 export function CommitmentScale({ commitment }: CommitmentScaleProps): React.ReactElement {
   const t = useTranslations("ticket.commitment");
-  const level = COMMITMENT_LEVEL[commitment];
+  const filled = FILLED_DAYS[commitment];
   const label = t(commitment);
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex gap-1" role="img" aria-label={label}>
-        {Array.from({ length: COMMITMENT_SCALE_STEPS }, (_, step) => (
-          <span
-            key={step}
-            className={`h-2.5 w-7 rounded-full ${segmentClass(commitment, step, level)}`}
-          />
+    <div className="flex items-center gap-3">
+      <div role="img" aria-label={label} className="grid shrink-0 grid-cols-7 gap-[3px] rounded-lg bg-mist p-1.5">
+        {Array.from({ length: DAYS_PER_WEEK * WEEKS_SHOWN }, (_, day) => (
+          <span key={day} className={`size-[7px] rounded-full ${day < filled ? "bg-ink" : "bg-line"}`} />
         ))}
       </div>
-      <span className="font-display text-lg leading-tight font-semibold text-ink">{label}</span>
+      <span className="display-label text-[0.95rem] leading-tight text-ink">{label}</span>
     </div>
   );
 }

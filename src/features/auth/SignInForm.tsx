@@ -22,7 +22,7 @@ export function SignInForm({ nextPath, onBeforeSend }: SignInFormProps): React.R
 
   if (sentTo) {
     return (
-      <p role="status" className="rounded-2xl bg-sage-soft px-4 py-3 text-text">
+      <p role="status" className="rounded-2xl bg-leaf-soft px-4 py-3 text-text">
         {t("sent", { email: sentTo })}
       </p>
     );

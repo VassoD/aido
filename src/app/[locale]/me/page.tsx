@@ -40,7 +40,7 @@ async function MyApplications({ locale }: { locale: string }): Promise<React.Rea
           <li key={application.id} className={`${CARD} flex flex-col gap-4`}>
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="font-display text-xl leading-snug font-semibold text-ink">{application.mission.title}</p>
+                <p className="display-title text-xl leading-tight text-ink">{application.mission.title}</p>
                 <p className="text-sm text-muted">
                   {[application.mission.organizationName, application.mission.city].filter(Boolean).join(", ")}
                 </p>

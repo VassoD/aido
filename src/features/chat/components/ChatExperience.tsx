@@ -84,69 +84,91 @@ export function ChatExperience(): React.ReactElement {
     if (hasConversation) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [messages.length, status, hasConversation]);
 
+  const header = (
+    <AppHeader savedCount={savedMissions.saved.length} onOpenSaved={() => setSavedOpen(true)} onRestart={restart} />
+  );
   return (
     <>
-      <AppHeader savedCount={savedMissions.saved.length} onOpenSaved={() => setSavedOpen(true)} onRestart={restart} />
-
-      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 sm:px-6">
-        {!hasConversation ? (
-          <section className="flex flex-1 flex-col justify-center gap-8 py-10 sm:py-16">
-            <div className="flex flex-col gap-5">
-              <h1 className="font-display text-[2.5rem] leading-[1.02] font-bold tracking-tight text-balance text-ink sm:text-[4rem]">
+      {!hasConversation ? (
+        <>
+          <div className="bg-sun-soft">
+            {header}
+            <section className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-4 pt-8 pb-10 sm:px-6 sm:pt-12 sm:pb-12">
+              <h1 className="display-title headline-in max-w-[15ch] text-[2.9rem] leading-[0.98] text-balance text-ink sm:text-[4.6rem]">
                 {t("intro.headline")}
               </h1>
-              <p className="max-w-[60ch] text-lg text-muted">{t("intro.lede")}</p>
-            </div>
-            <Composer variant="hero" isBusy={isBusy} onSend={send} onStop={() => void stop()} />
-            <div className="flex flex-col gap-2">
-              <p className="text-sm text-muted">{t("intro.examplesLabel")}</p>
-              <ul className="flex flex-col gap-1">
+              <p className="max-w-[54ch] text-lg text-ink">{t("intro.lede")}</p>
+              <div className="mt-2">
+                <Composer variant="hero" isBusy={isBusy} onSend={send} onStop={() => void stop()} />
+              </div>
+            </section>
+          </div>
+
+          <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 py-8 sm:px-6 sm:py-10">
+            <section className="flex flex-col gap-3" aria-labelledby="examples-title">
+              <h2 id="examples-title" className="text-sm font-bold text-muted">
+                {t("intro.examplesLabel")}
+              </h2>
+              <ul className="flex flex-wrap gap-2">
                 {EXAMPLE_KEYS.map((key) => (
                   <li key={key}>
                     <button
                       type="button"
                       onClick={() => send(t(`intro.examples.${key}`))}
-                      className="text-left text-ink underline decoration-line decoration-2 underline-offset-4 transition-colors hover:decoration-marigold"
+                      className="rounded-full border border-line bg-card px-4 py-2 text-left text-sm text-text transition-colors hover:border-ink hover:bg-mist"
                     >
                       {t(`intro.examples.${key}`)}
                     </button>
                   </li>
                 ))}
               </ul>
+            </section>
+          </main>
+        </>
+      ) : (
+        <>
+          <div className="border-b border-line">{header}</div>
+          <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-4 sm:px-6">
+            <div className="flex flex-1 flex-col gap-6 pt-6 pb-6">
+              {messages.map((message) => (
+                <ChatMessage
+                  key={message.id}
+                  message={message}
+                  savedMissions={savedMissions}
+                  onApply={requestApplication}
+                  onBeforeSignIn={() => stashChat(messages)}
+                />
+              ))}
+              {status === "submitted" && (
+                <span className="flex gap-1" aria-hidden="true">
+                  {[0, 1, 2].map((dot) => (
+                    <span
+                      key={dot}
+                      className="size-2.5 animate-pulse rounded-full bg-ink motion-reduce:animate-none"
+                      style={{ animationDelay: `${dot * 150}ms` }}
+                    />
+                  ))}
+                </span>
+              )}
+              {error && (
+                <div role="alert" className="flex flex-wrap items-center gap-3 rounded-2xl bg-coral-soft px-4 py-3">
+                  <p className="text-danger">{t(`errors.${chatErrorCode(error)}`)}</p>
+                  <button type="button" onClick={() => void regenerate()} className="font-bold text-ink underline">
+                    {t("errors.retry")}
+                  </button>
+                  <button type="button" onClick={restart} className="font-bold text-ink underline">
+                    {t("errors.restart")}
+                  </button>
+                </div>
+              )}
+              <div ref={endRef} />
             </div>
-          </section>
-        ) : (
-          <div className="flex flex-1 flex-col gap-6 pt-4 pb-6">
-            {messages.map((message) => (
-              <ChatMessage
-                key={message.id}
-                message={message}
-                savedMissions={savedMissions}
-                onApply={requestApplication}
-                onBeforeSignIn={() => stashChat(messages)}
-              />
-            ))}
-            {status === "submitted" && (
-              <span className="size-2 animate-pulse rounded-full bg-marigold motion-reduce:animate-none" aria-hidden="true" />
-            )}
-            {error && (
-              <div role="alert" className="flex flex-wrap items-center gap-3 rounded-2xl border border-danger/40 px-4 py-3">
-                <p className="text-danger">{t(`errors.${chatErrorCode(error)}`)}</p>
-                <button type="button" onClick={() => void regenerate()} className="font-semibold text-ink underline">
-                  {t("errors.retry")}
-                </button>
-                <button type="button" onClick={restart} className="font-semibold text-ink underline">
-                  {t("errors.restart")}
-                </button>
-              </div>
-            )}
-            <div ref={endRef} />
-          </div>
-        )}
-      </main>
+          </main>
+        </>
+      )}
 
       {hasConversation && (
-        <div className="sticky bottom-0 border-t border-line bg-paper/95 backdrop-blur">
+        <div className="sticky bottom-0 z-10 border-t border-line bg-paper/95 shadow-[0_-10px_30px_-20px_rgb(18_38_29/0.4)]">
           <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-4 py-3 sm:px-6">
             {profile && (
               <ProfileStrip

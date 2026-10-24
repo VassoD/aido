@@ -59,7 +59,7 @@ export function ProfileStrip({ query, disabled, onRemove }: ProfileStripProps): 
               disabled={disabled}
               onClick={() => onRemove(criterion.label)}
               aria-label={t("remove", { label: criterion.label })}
-              className="group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-line bg-surface py-1 pr-2 pl-3 text-sm text-text transition-colors hover:border-ink disabled:opacity-60"
+              className="group inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-line bg-card py-1 pr-2 pl-3 text-sm text-text transition-colors hover:border-ink disabled:opacity-60"
             >
               {criterion.label}
               <svg aria-hidden="true" viewBox="0 0 16 16" className="size-3.5 text-muted group-hover:text-ink">

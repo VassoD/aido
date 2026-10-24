@@ -16,7 +16,7 @@ export function LocaleSwitch(): React.ReactElement {
       locale={otherLocale}
       lang={otherLocale}
       aria-label={t("switchLocaleLabel")}
-      className="rounded-full px-3 py-1.5 text-ink hover:bg-surface"
+      className="rounded-full px-3 py-1.5 text-ink hover:bg-card"
     >
       {t("switchLocale")}
     </Link>

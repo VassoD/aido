@@ -74,15 +74,15 @@ export function ApplicationDraftCard({ draft, onBeforeSignIn }: ApplicationDraft
 
   if (state === "sent" || state === "conflict") {
     return (
-      <section className="flex flex-col items-start gap-3 rounded-2xl border border-line bg-surface p-5 sm:p-6">
-        <p className="flex items-center gap-2 font-display text-xl font-semibold text-ink">
-          <svg aria-hidden="true" viewBox="0 0 20 20" className="size-5 text-sage">
+      <section className="flex flex-col items-start gap-3 rounded-2xl border border-line bg-card p-5 sm:p-6">
+        <p className="flex items-center gap-2 display-title text-xl leading-tight text-ink">
+          <svg aria-hidden="true" viewBox="0 0 20 20" className="size-5 text-leaf">
             <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
           {state === "sent" ? t("sentTitle") : t("conflict")}
         </p>
         {state === "sent" && <p className="text-text">{t("done", { organization })}</p>}
-        <Link href="/me" className="font-semibold text-ink underline decoration-marigold decoration-2 underline-offset-4">
+        <Link href="/me" className="font-semibold text-ink underline decoration-sun decoration-2 underline-offset-4">
           {t("seeApplications")}
         </Link>
       </section>
@@ -90,9 +90,9 @@ export function ApplicationDraftCard({ draft, onBeforeSignIn }: ApplicationDraft
   }
 
   return (
-    <section aria-labelledby={`draft-${mission.sourceId}`} className="overflow-hidden rounded-2xl border border-line bg-surface">
-      <header className="flex flex-col gap-1 bg-marigold-soft px-5 py-4 sm:px-6">
-        <h3 id={`draft-${mission.sourceId}`} className="font-display text-xl font-semibold text-ink">
+    <section aria-labelledby={`draft-${mission.sourceId}`} className="overflow-hidden rounded-2xl border border-line bg-card">
+      <header className="flex flex-col gap-1 bg-sun-soft px-5 py-4 sm:px-6">
+        <h3 id={`draft-${mission.sourceId}`} className="display-title text-xl leading-tight text-ink">
           {t("draftTitle")}
         </h3>
         <p className="text-sm text-text">
@@ -154,7 +154,7 @@ export function ApplicationDraftCard({ draft, onBeforeSignIn }: ApplicationDraft
                     {[t("yes"), t("no")].map((option) => (
                       <label
                         key={option}
-                        className={`cursor-pointer rounded-full border px-4 py-1.5 transition-colors has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-marigold ${
+                        className={`cursor-pointer rounded-full border px-4 py-1.5 transition-colors has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-sun ${
                           value === option ? "border-ink bg-ink text-paper" : "border-line text-ink hover:border-ink"
                         }`}
                       >
@@ -226,7 +226,7 @@ export function ApplicationDraftCard({ draft, onBeforeSignIn }: ApplicationDraft
           <button
             type="submit"
             disabled={isSending}
-            className="self-start rounded-full bg-marigold px-5 py-2.5 font-semibold text-ink transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="self-start rounded-full bg-sun px-5 py-2.5 font-semibold text-ink transition-opacity hover:opacity-90 disabled:opacity-50"
           >
             {isSending ? t("submitting") : t("sendTo", { organization })}
           </button>

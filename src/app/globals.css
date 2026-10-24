@@ -1,49 +1,48 @@
 @import "tailwindcss";
 
+/*
+ * Soleil: a sunflower field of colour to open, white pages to work on, deep green ink.
+ * Sun = act now. Leaf = verified / accepted. Coral = needs attention.
+ */
 :root {
-  --paper: #f3f5f1;
-  --surface: #ffffff;
-  --ink: #22346b;
-  --text: #1f2633;
-  --muted: #5b6573;
-  --line: #d3dad4;
-  --marigold: #f2b632;
-  --marigold-soft: #fbe9b8;
-  --sage: #6e9c7e;
-  --sage-soft: #dfeae2;
-  --danger: #a23b2a;
-  --focus: #f2b632;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --paper: #151b2b;
-    --surface: #1d2538;
-    --ink: #c9d5ff;
-    --text: #e6e9ef;
-    --muted: #a3acbb;
-    --line: #34405a;
-    --marigold: #f5c451;
-    --marigold-soft: #4a3d1c;
-    --sage: #8fbf9f;
-    --sage-soft: #24372c;
-    --danger: #ff9b87;
-  }
+  --paper: #ffffff;
+  --card: #ffffff;
+  --mist: #f3f4ef;
+  --ink: #12261d;
+  --ink-deep: #0b1913;
+  --text: #24342c;
+  --muted: #5b6a62;
+  --line: #e1e4dc;
+  --sun: #ffcd38;
+  --sun-strong: #f5bd12;
+  --sun-soft: #fff3c9;
+  --leaf: #2d7a4b;
+  --leaf-soft: #e1f1e6;
+  --coral: #d9472f;
+  --coral-soft: #fde5df;
+  --danger: #b42318;
+  --focus: #12261d;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-paper: var(--paper);
-  --color-surface: var(--surface);
+  --color-card: var(--card);
+  --color-mist: var(--mist);
   --color-ink: var(--ink);
+  --color-ink-deep: var(--ink-deep);
   --color-text: var(--text);
   --color-muted: var(--muted);
   --color-line: var(--line);
-  --color-marigold: var(--marigold);
-  --color-marigold-soft: var(--marigold-soft);
-  --color-sage: var(--sage);
-  --color-sage-soft: var(--sage-soft);
+  --color-sun: var(--sun);
+  --color-sun-strong: var(--sun-strong);
+  --color-sun-soft: var(--sun-soft);
+  --color-leaf: var(--leaf);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
   --color-danger: var(--danger);
-  --font-display: var(--font-familjen);
+  --font-display: var(--font-funnel);
   --font-sans: var(--font-atkinson);
 }
 
@@ -52,67 +51,42 @@ body {
   color: var(--text);
   font-family: var(--font-atkinson), system-ui, sans-serif;
   font-size: 1.0625rem;
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
-/* Elements marked data-focus="custom" draw their own focus treatment (e.g. the composer's field ring). */
-:focus-visible:not([data-focus="custom"]) {
-  outline: 3px solid var(--focus);
-  outline-offset: 2px;
-  border-radius: 4px;
+/* Display voice: Funnel Display, heavy and slightly tight. Utilities, so leading-* still applies. */
+@utility display-title {
+  font-family: var(--font-funnel), system-ui, sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.025em;
 }
 
-/* The ticket stub is separated by a perforation: a dashed rule with a notch at each end. */
-.ticket-perforation {
-  position: relative;
-  border-left: 2px dashed var(--line);
+@utility display-label {
+  font-family: var(--font-funnel), system-ui, sans-serif;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
 
-.ticket-perforation::before,
-.ticket-perforation::after {
-  content: "";
-  position: absolute;
-  left: -11px;
-  width: 20px;
-  height: 20px;
-  border-radius: 9999px;
-  background: var(--paper);
-}
-
-.ticket-perforation::before {
-  top: -11px;
-}
-
-.ticket-perforation::after {
-  bottom: -11px;
-}
-
-@media (max-width: 639px) {
-  .ticket-perforation {
-    border-left: 0;
-    border-top: 2px dashed var(--line);
+/* Ticking a free slot or saving a mission: the check draws along its path. */
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 1;
   }
-
-  .ticket-perforation::before,
-  .ticket-perforation::after {
-    top: -11px;
-    left: auto;
-    bottom: auto;
-  }
-
-  .ticket-perforation::before {
-    left: -11px;
-  }
-
-  .ticket-perforation::after {
-    right: -11px;
+  to {
+    stroke-dashoffset: 0;
   }
 }
 
-@keyframes ticket-in {
+.check-draw {
+  stroke-dasharray: 1;
+  animation: check-draw 260ms cubic-bezier(0.3, 0.7, 0.3, 1) both;
+}
+
+/* Matches arrive one after another, rising into place. */
+@keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(6px) rotate(-0.4deg);
+    transform: translateY(14px) scale(0.985);
   }
   to {
     opacity: 1;
@@ -120,30 +94,61 @@ body {
   }
 }
 
-.ticket-enter {
-  animation: ticket-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+.rise-in {
+  animation: rise-in 420ms cubic-bezier(0.2, 0.75, 0.2, 1) both;
+}
+
+/* The opening headline settles in once, the page's single orchestrated moment. */
+@keyframes headline-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+.headline-in {
+  animation: headline-in 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ticket-enter {
+  .check-draw,
+  .rise-in,
+  .headline-in {
     animation: none;
   }
 }
 
-/* Browser surfaces carry the palette too. */
+/* Elements marked data-focus="custom" draw their own focus treatment (e.g. the composer's field ring). */
+:focus-visible:not([data-focus="custom"]) {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
 ::selection {
-  background: var(--marigold-soft);
-  color: var(--ink);
+  background: var(--sun);
+  color: var(--ink-deep);
 }
 
 html {
   caret-color: var(--ink);
   accent-color: var(--ink);
-  scrollbar-color: var(--line) transparent;
+  scrollbar-color: var(--line) var(--paper);
   text-underline-offset: 0.2em;
 }
 
-/* Disclosure rows use a drawn chevron instead of the browser triangle. */
+input::placeholder,
+textarea::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
 summary {
   list-style: none;
 }
