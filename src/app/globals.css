@@ -1,26 +1,153 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --paper: #f3f5f1;
+  --surface: #ffffff;
+  --ink: #22346b;
+  --text: #1f2633;
+  --muted: #5b6573;
+  --line: #d3dad4;
+  --marigold: #f2b632;
+  --marigold-soft: #fbe9b8;
+  --sage: #6e9c7e;
+  --sage-soft: #dfeae2;
+  --danger: #a23b2a;
+  --focus: #f2b632;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --paper: #151b2b;
+    --surface: #1d2538;
+    --ink: #c9d5ff;
+    --text: #e6e9ef;
+    --muted: #a3acbb;
+    --line: #34405a;
+    --marigold: #f5c451;
+    --marigold-soft: #4a3d1c;
+    --sage: #8fbf9f;
+    --sage-soft: #24372c;
+    --danger: #ff9b87;
   }
 }
 
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-marigold: var(--marigold);
+  --color-marigold-soft: var(--marigold-soft);
+  --color-sage: var(--sage);
+  --color-sage-soft: var(--sage-soft);
+  --color-danger: var(--danger);
+  --font-display: var(--font-familjen);
+  --font-sans: var(--font-atkinson);
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-atkinson), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+/* Elements marked data-focus="custom" draw their own focus treatment (e.g. the composer's field ring). */
+:focus-visible:not([data-focus="custom"]) {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* The ticket stub is separated by a perforation: a dashed rule with a notch at each end. */
+.ticket-perforation {
+  position: relative;
+  border-left: 2px dashed var(--line);
+}
+
+.ticket-perforation::before,
+.ticket-perforation::after {
+  content: "";
+  position: absolute;
+  left: -11px;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  background: var(--paper);
+}
+
+.ticket-perforation::before {
+  top: -11px;
+}
+
+.ticket-perforation::after {
+  bottom: -11px;
+}
+
+@media (max-width: 639px) {
+  .ticket-perforation {
+    border-left: 0;
+    border-top: 2px dashed var(--line);
+  }
+
+  .ticket-perforation::before,
+  .ticket-perforation::after {
+    top: -11px;
+    left: auto;
+    bottom: auto;
+  }
+
+  .ticket-perforation::before {
+    left: -11px;
+  }
+
+  .ticket-perforation::after {
+    right: -11px;
+  }
+}
+
+@keyframes ticket-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) rotate(-0.4deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.ticket-enter {
+  animation: ticket-in 320ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticket-enter {
+    animation: none;
+  }
+}
+
+/* Browser surfaces carry the palette too. */
+::selection {
+  background: var(--marigold-soft);
+  color: var(--ink);
+}
+
+html {
+  caret-color: var(--ink);
+  accent-color: var(--ink);
+  scrollbar-color: var(--line) transparent;
+  text-underline-offset: 0.2em;
+}
+
+/* Disclosure rows use a drawn chevron instead of the browser triangle. */
+summary {
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
 }

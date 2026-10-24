@@ -1,0 +1,304 @@
+{
+  "meta": {
+    "title": "Aido, trouvez où aider près de chez vous",
+    "description": "Dites en quelques mots ce que vous aimez, ce que vous savez faire et le temps que vous avez. Aido vous propose des missions de bénévolat réelles qui vous correspondent."
+  },
+  "header": {
+    "saved": "Gardées ({count})",
+    "switchLocale": "English",
+    "switchLocaleLabel": "Switch to English"
+  },
+  "intro": {
+    "headline": "Dites-nous comment vous voulez aider. On trouve où.",
+    "lede": "Quelques mots suffisent : où vous êtes, ce que vous aimez ou savez faire, le temps que vous avez. Aido cherche parmi les missions publiées sur JeVeuxAider.gouv.fr et le Service Civique, et ne garde que celles qui vous vont.",
+    "examplesLabel": "Pour commencer, par exemple :",
+    "examples": {
+      "one": "J'ai le samedi matin de libre à Lyon 7e, j'aime bien les enfants",
+      "two": "Je suis comptable à Paris, je veux mettre mes compétences au service d'une asso",
+      "three": "Je n'ai jamais fait de bénévolat, je cherche une action ponctuelle à Nantes"
+    }
+  },
+  "composer": {
+    "placeholder": "Par exemple : je vis à Lille, je parle anglais et j'ai deux soirs par semaine",
+    "placeholderFollowUp": "Précisez ou changez un critère",
+    "send": "Envoyer",
+    "stop": "Arrêter",
+    "label": "Votre message"
+  },
+  "profile": {
+    "title": "Ce que j'ai compris",
+    "remove": "Retirer « {label} »",
+    "removeMessage": "Ne tiens plus compte de ce critère : {label}",
+    "remote": "À distance",
+    "onsite": "Sur place",
+    "radius": "{km} km autour",
+    "minor": "Moins de 18 ans",
+    "accessibility": "Accessible PMR",
+    "commitment": {
+      "one-off": "Action ponctuelle",
+      "short-term": "Court terme"
+    },
+    "engagement": {
+      "volunteering": "Bénévolat",
+      "civic-service": "Service Civique",
+      "other": "Autre engagement"
+    }
+  },
+  "causes": {
+    "solidarity": "Solidarité",
+    "education": "Éducation",
+    "health": "Santé",
+    "environment": "Environnement",
+    "animals": "Animaux",
+    "culture": "Culture",
+    "sport": "Sport",
+    "digital": "Numérique",
+    "humanitarian": "Humanitaire",
+    "citizenship": "Citoyenneté",
+    "emergency": "Prévention et secours",
+    "employment": "Emploi",
+    "research": "Recherche",
+    "other": "Autre"
+  },
+  "search": {
+    "running": "Je cherche des missions…",
+    "runningNear": "Je cherche des missions près de {place}…",
+    "done": "{count, plural, =0 {Aucune mission trouvée} one {# mission trouvée} other {# missions trouvées}} {place, select, none {à distance} other {autour de {place}}}",
+    "locationNotFound": "Je ne trouve pas « {location} ».",
+    "failed": "La recherche n'a pas abouti.",
+    "webRunning": "Je cherche aussi sur le web…",
+    "webDone": "Recherche sur le web : « {query} »",
+    "webDoneNoQuery": "Recherche sur le web terminée",
+    "webHeading": "Aussi trouvé sur le web"
+  },
+  "ticket": {
+    "apply": "Postuler",
+    "applyLabel": "Postuler à « {title} » (ouvre le site de l'association)",
+    "viewPage": "Voir la page",
+    "viewPageLabel": "Voir « {title} » sur {source}",
+    "foundOnWeb": "Trouvée sur le web",
+    "webSource": "Source : {source}",
+    "save": "Garder",
+    "saved": "Gardée",
+    "remote": "À distance",
+    "hybrid": "Sur place ou à distance",
+    "firstStep": "Premier pas :",
+    "description": "Lire la description",
+    "publishedOn": "Publiée sur {source}",
+    "civicService": "Service Civique",
+    "accessible": "Accessible PMR",
+    "minorsWelcome": "Ouverte aux mineurs",
+    "skillsBased": "Bénévolat de compétences",
+    "commitment": {
+      "one-off": "Une fois",
+      "short-term": "Quelques semaines",
+      "long-term": "Plusieurs mois",
+      "ongoing": "Régulier, sans date de fin",
+      "unknown": "Durée à confirmer"
+    },
+    "dates": {
+      "single": "Le {date}",
+      "range": "Du {start} au {end}",
+      "from": "À partir du {date}",
+      "until": "Jusqu'au {date}"
+    }
+  },
+  "saved": {
+    "title": "Missions gardées",
+    "empty": "Gardez une mission pour la retrouver ici. Elles restent sur cet appareil.",
+    "close": "Fermer",
+    "remove": "Retirer"
+  },
+  "errors": {
+    "RATE_LIMIT_EXCEEDED": "Beaucoup de messages en peu de temps. Réessayez dans quelques minutes.",
+    "INVALID_INPUT": "La conversation est devenue trop longue. Recommencez une nouvelle recherche.",
+    "PROVIDER_UNAVAILABLE": "La source des missions ne répond pas pour le moment. Réessayez dans un instant.",
+    "GEOCODING_FAILED": "Le service de localisation ne répond pas. Réessayez dans un instant.",
+    "AI_UNAVAILABLE": "Le service d'IA d'Aido est injoignable pour le moment. Réessayez dans un instant.",
+    "INTERNAL_ERROR": "Aido n'a pas pu répondre. Réessayez.",
+    "retry": "Réessayer",
+    "restart": "Nouvelle recherche",
+    "AUTH_REQUIRED": "Connectez-vous pour continuer.",
+    "NOT_FOUND": "Introuvable.",
+    "CONFLICT": "Cela existe déjà."
+  },
+  "footer": {
+    "attribution": "Données : missions publiées sur JeVeuxAider.gouv.fr et Service Civique. Aido ne publie pas de missions et ne transmet pas vos messages aux associations.",
+    "ai": "Les suggestions sont générées par une IA et peuvent contenir des erreurs : l'association confirme toujours les détails."
+  },
+  "nav": {
+    "associations": "Espace associations",
+    "myApplications": "Mes candidatures",
+    "signOut": "Se déconnecter",
+    "home": "Trouver une mission",
+    "label": "Navigation principale"
+  },
+  "auth": {
+    "title": "Connexion",
+    "lede": "Recevez un lien de connexion par email. Pas de mot de passe à retenir.",
+    "email": "Votre email",
+    "send": "Recevoir le lien",
+    "sending": "Envoi…",
+    "sent": "C'est parti. Ouvrez l'email envoyé à {email} et cliquez sur le lien pour continuer.",
+    "error": "Le lien n'a pas pu être envoyé. Vérifiez l'adresse et réessayez.",
+    "rateLimited": "Trop de demandes. Réessayez dans quelques minutes.",
+    "linkExpired": "Ce lien n'est plus valide. Demandez-en un nouveau."
+  },
+  "asso": {
+    "pitch": "Publiez vos missions en deux minutes et recevez des candidatures prêtes à lire. Fini les formulaires PDF.",
+    "signInTitle": "Espace associations",
+    "onboarding": {
+      "title": "Votre association",
+      "lede": "Entrez votre numéro RNA (W suivi de 9 chiffres) ou votre SIREN. On vérifie dans le registre officiel.",
+      "label": "RNA ou SIREN",
+      "check": "Vérifier",
+      "checking": "Vérification…",
+      "confirm": "C'est bien nous, continuer",
+      "creating": "Création…",
+      "found": "Trouvée dans le registre officiel",
+      "notFound": "Aucune association active ne correspond à ce numéro.",
+      "invalid": "Ce numéro ne ressemble pas à un RNA (W123456789) ou un SIREN (9 chiffres).",
+      "inactive": "Cette structure est fermée dans le registre.",
+      "notNonprofit": "Cette structure n'est pas une association ou un organisme à but non lucratif.",
+      "unavailable": "Le registre officiel ne répond pas. Réessayez dans un instant.",
+      "conflict": "Cette association a déjà un compte Aido. Contactez la personne qui l'a créé.",
+      "demoFound": "Numéro de test : association de démonstration, non vérifiée. Disponible en développement uniquement."
+    },
+    "verified": "Vérifiée",
+    "verifiedHint": "Existence vérifiée dans le registre officiel des entreprises et associations",
+    "dashboard": {
+      "missions": "Vos missions",
+      "newMission": "Publier une mission",
+      "empty": "Aucune mission pour l'instant. Décrivez votre besoin, l'IA s'occupe de la mise en forme.",
+      "applicants": "{count, plural, =0 {Aucune candidature} one {# candidature} other {# candidatures}}",
+      "pending": "{count, plural, =0 {} one {dont # à traiter} other {dont # à traiter}}",
+      "status": {
+        "published": "En ligne",
+        "draft": "Brouillon",
+        "closed": "Fermée"
+      },
+      "close": "Fermer la mission",
+      "reopen": "Remettre en ligne",
+      "view": "Voir les candidatures"
+    }
+  },
+  "missionComposer": {
+    "title": "Publier une mission",
+    "lede": "Décrivez votre besoin comme vous le feriez à un ami, ou déposez votre ancien formulaire PDF. L'IA rédige la mission et un formulaire court à la place.",
+    "describe": "Votre besoin",
+    "describePlaceholder": "Ex. : On cherche des bénévoles le mardi soir pour la distribution alimentaire au 12 rue de la Roquette…",
+    "pdf": "Ancien formulaire ou fiche mission (PDF, optionnel)",
+    "generate": "Rédiger avec l'IA",
+    "generating": "L'IA rédige votre mission…",
+    "reviewTitle": "Relisez avant de publier",
+    "reviewLede": "Tout est modifiable. Ce que vous voyez est ce que verront les bénévoles.",
+    "fields": {
+      "title": "Titre",
+      "description": "Description",
+      "city": "Ville",
+      "locationMode": "Lieu",
+      "commitment": "Engagement",
+      "cause": "Cause",
+      "schedule": "Horaires",
+      "startDate": "Début",
+      "endDate": "Fin",
+      "places": "Places"
+    },
+    "locationModes": {
+      "onsite": "Sur place",
+      "remote": "À distance",
+      "hybrid": "Sur place ou à distance"
+    },
+    "questionsTitle": "Questions aux bénévoles",
+    "questionsLede": "Ce formulaire court remplace votre PDF. Nom, email et téléphone sont déjà fournis par Aido.",
+    "questionKinds": {
+      "short": "Réponse courte",
+      "long": "Réponse longue",
+      "yes_no": "Oui / Non"
+    },
+    "addQuestion": "Ajouter une question",
+    "removeQuestion": "Retirer",
+    "publish": "Publier la mission",
+    "publishing": "Publication…",
+    "startOver": "Recommencer",
+    "errors": {
+      "tooShort": "Décrivez votre besoin en quelques phrases, ou ajoutez un PDF.",
+      "pdfInvalid": "Le fichier doit être un PDF de moins de 8 Mo.",
+      "ai": "L'IA n'a pas pu rédiger la mission. Réessayez.",
+      "publish": "La mission n'a pas pu être publiée. Vérifiez les champs et réessayez."
+    },
+    "pdfChoose": "Choisir un PDF",
+    "pdfNone": "Aucun fichier choisi",
+    "pdfRemove": "Retirer le fichier"
+  },
+  "applicants": {
+    "back": "Retour aux missions",
+    "empty": "Pas encore de candidature. Elle apparaîtra ici dès qu'un bénévole postule depuis Aido.",
+    "fit": "Résumé IA",
+    "answers": "Réponses",
+    "motivation": "Motivation",
+    "contact": "Contact",
+    "accept": "Accepter",
+    "decline": "Décliner",
+    "reset": "Remettre en attente",
+    "status": {
+      "pending": "À traiter",
+      "accepted": "Acceptée",
+      "declined": "Déclinée",
+      "withdrawn": "Retirée"
+    },
+    "thread": "Échanges",
+    "reply": "Écrire au bénévole",
+    "send": "Envoyer",
+    "noMessages": "Pas encore de message.",
+    "you": "Vous",
+    "sendFailed": "Le message n'a pas pu être envoyé. Réessayez.",
+    "publishedTitle": "Votre mission est en ligne",
+    "publishedBody": "Elle apparaît dès maintenant en tête des recherches des bénévoles autour de {city}, avec le bouton « Postuler sur Aido ». Les candidatures arriveront ici.",
+    "publishedBodyNoCity": "Elle apparaît dès maintenant dans les recherches des bénévoles, avec le bouton « Postuler sur Aido ». Les candidatures arriveront ici.",
+    "tryIt": "Voir comme un bénévole",
+    "missionTitle": "Votre mission",
+    "formTitle": "Ce que les bénévoles vous répondront",
+    "formHint": "Prénom, ville, email et téléphone sont ajoutés automatiquement.",
+    "applicationsTitle": "Candidatures",
+    "places": "{count, plural, one {# place} other {# places}}"
+  },
+  "apply": {
+    "button": "Postuler sur Aido",
+    "buttonLabel": "Postuler à « {title} » directement sur Aido",
+    "inAppTag": "Candidature en 1 clic",
+    "title": "Postuler",
+    "prefilling": "Aido pré-remplit votre candidature à partir de la conversation…",
+    "prefilled": "Pré-rempli à partir de votre conversation. Vérifiez et complétez.",
+    "signInFirst": "Pour envoyer votre candidature, indiquez votre email. Vous recevrez un lien de connexion, puis vous reviendrez ici.",
+    "firstName": "Prénom",
+    "city": "Ville",
+    "phone": "Téléphone (optionnel)",
+    "motivation": "Quelques mots pour l'association",
+    "yes": "Oui",
+    "no": "Non",
+    "submit": "Envoyer ma candidature",
+    "submitting": "Envoi…",
+    "cancel": "Annuler",
+    "done": "Candidature envoyée à {organization}. Vous suivrez la réponse dans « Mes candidatures ».",
+    "seeApplications": "Voir mes candidatures",
+    "conflict": "Vous avez déjà postulé à cette mission.",
+    "error": "La candidature n'a pas pu être envoyée. Réessayez.",
+    "missingFirstName": "Indiquez votre prénom.",
+    "chatRequest": "Prépare ma candidature pour « {title} »",
+    "draftTitle": "Votre candidature est prête",
+    "draftLede": "Rédigée par Aido à partir de votre conversation. Relisez, complétez si besoin, puis envoyez.",
+    "toComplete": "À compléter",
+    "sendTo": "Envoyer à {organization}",
+    "sentTitle": "Candidature envoyée",
+    "signInToSend": "Dernière étape : indiquez votre email pour que {organization} puisse vous répondre. Vous reviendrez ici après avoir cliqué sur le lien.",
+    "notInApp": "Cette mission ne se trouve plus sur Aido."
+  },
+  "me": {
+    "title": "Mes candidatures",
+    "empty": "Vous n'avez pas encore postulé. Trouvez une mission qui vous ressemble.",
+    "sentOn": "Envoyée le {date}",
+    "reply": "Écrire à l'association",
+    "withdraw": "Retirer ma candidature"
+  }
+}
