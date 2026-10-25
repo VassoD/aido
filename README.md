@@ -19,6 +19,16 @@ Built for the OpenAI DevDay Community Hackathon, Paris (Impact track). France fi
 - Inbox per mission: AI fit summary, answers, the volunteer's track record and LinkedIn, contact details, accept or decline, messages.
 - Both sides get an email for new applications, decisions, completed missions and messages.
 
+## Business model
+
+Aido is free for volunteers and associations. Companies will pay a yearly subscription to run their employee volunteering through Aido: skills-based sponsorship ("mécénat de compétences") is 60% tax-deductible in France, and companies already pay engagement platforms such as Vendredi for this. Later: a premium plan for associations and white-label versions for local authorities.
+
+Sources:
+- [Ministère de la Culture, mécénat d'entreprise](https://www.culture.gouv.fr/thematiques/mecenat/articles-a-la-une/Loi-de-finances-pour-2020-Les-changements-pour-le-mecenat-d-entreprise): 60% tax reduction (40% above €2M a year), and what mécénat de compétences is
+- [Associathèque, mécénat de compétences](https://www.associatheque.fr/fr/focus-mecenat-competences.html): companies lend employees to a nonprofit during work time, 60% reduction on their cost
+- [Carenews, employee engagement platforms](https://www.carenews.com/fr/news/plateformes-d-engagement-collaborateurs-quels-enjeux-pour-les-entreprises): companies pay these platforms an annual subscription based on company size
+- [Carenews, interview with Vendredi](https://www.carenews.com/carenews-pro/news/felix-de-monts-vendredi-on-veut-faire-grandir-le-marche-de-l-engagement-en-france): 160 corporate clients, from TikTok to Danone, and 1,000 associations
+
 ## Stack
 
 - Next.js 16 (App Router, Cache Components), React 19, TypeScript strict, Tailwind CSS 4, next-intl (FR/EN)
@@ -27,6 +37,13 @@ Built for the OpenAI DevDay Community Hackathon, Paris (Impact track). France fi
 - Brevo for transactional email (sign-in links and notifications)
 - Vercel hosting and Web Analytics
 - Data: MANA open API (dev relay of API Engagement), API Engagement adapter (official, needs a key), Géoplateforme geocoding, API Recherche d'Entreprises
+
+### Data sources
+
+- [JeVeuxAider.gouv.fr](https://www.jeveuxaider.gouv.fr) and [Service Civique](https://www.service-civique.gouv.fr): the volunteering missions, read through [API Engagement](https://api-engagement.beta.gouv.fr/) (official) or its open relay [MANA](https://mana.bzh)
+- [API Recherche d'Entreprises](https://recherche-entreprises.api.gouv.fr): checks an association's RNA or SIREN in the official register
+- [Géoplateforme geocoding](https://geoservices.ign.fr/documentation/services/services-geoplateforme/geocodage) (IGN): turns a place into coordinates to search nearby
+- [OpenAI web search](https://platform.openai.com/docs/guides/tools-web-search): finds local associations and other platforms beyond the connected sources
 
 ## Architecture
 

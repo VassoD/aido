@@ -46,4 +46,22 @@ Si l'envoi du PDF échoue, coller ce texte à la place :
 - Données réelles : JeVeuxAider et Service Civique, plus la recherche web GPT, plus les missions publiées sur Aido.
 - GPT à chaque étape : comprendre la personne, chercher sur le web, lire un PDF, rédiger la candidature, résumer l'adéquation pour l'association.
 - Conçu pour tous les pays : un adaptateur par source de données, le reste ne change pas.
+- Modèle économique : gratuit pour les bénévoles et les associations ; les entreprises paieront un abonnement pour le bénévolat de leurs salariés et le mécénat de compétences, déductible à 60 %. Sources dans le README.
 - Prochaines étapes : clé API Engagement officielle, pages mission publiques à partager, rappels après acceptation, autres pays.
+
+## Si le jury pose des questions
+
+**Comment gagnez-vous de l'argent ?**
+Les entreprises paient un abonnement annuel pour proposer des missions à leurs salariés (bénévolat, mécénat de compétences avec 60 % de réduction d'impôt, article 238 bis du CGI), avec un tableau de bord pour les RH. Ce marché existe déjà en France, Vendredi le montre. Plus tard : une offre premium pour les associations et des versions en marque blanche pour les collectivités.
+
+**Pourquoi pas simplement JeVeuxAider ?**
+JeVeuxAider est une source d'Aido, pas un concurrent. Aido réunit JeVeuxAider, le Service Civique, les missions publiées sur Aido et le web dans une seule conversation, et ajoute ce qui manque : la candidature sans formulaire.
+
+**Comment savez-vous qu'une association est réelle ?**
+Avant de publier, l'association donne son RNA ou son SIREN, et Aido le vérifie dans le registre officiel. Cela prouve que l'association existe et est active.
+
+**Et les données personnelles ?**
+Aido ne demande ni adresse, ni date de naissance, ni pièce d'identité quand ce n'est pas nécessaire. L'IA n'envoie jamais rien seule : le bénévole relit et clique lui-même.
+
+**Pourquoi GPT ?**
+GPT intervient à chaque étape : comprendre la personne, chercher sur le web, lire un PDF, rédiger la candidature, résumer l'adéquation pour l'association.
