@@ -90,6 +90,26 @@ export function applicationDecisionEmail(input: {
   };
 }
 
+export function missionCompletedEmail(input: {
+  volunteerName: string;
+  organizationName: string;
+  missionTitle: string;
+  badgesUrl: string;
+}): { subject: string; html: string; text: string } {
+  return {
+    subject: `Merci pour « ${input.missionTitle} » : un nouveau badge vous attend`,
+    ...renderLayout({
+      heading: `Merci, ${input.volunteerName} !`,
+      paragraphs: [
+        `${input.organizationName} confirme que vous avez mené à bien la mission « ${input.missionTitle} ».`,
+        "Elle compte désormais dans votre parcours de bénévole : découvrez les badges débloqués dans votre espace.",
+      ],
+      actionLabel: "Voir mes badges",
+      actionUrl: input.badgesUrl,
+    }),
+  };
+}
+
 export function newMessageEmail(input: {
   senderName: string;
   missionTitle: string;

@@ -252,7 +252,8 @@
       "pending": "À traiter",
       "accepted": "Acceptée",
       "declined": "Déclinée",
-      "withdrawn": "Retirée"
+      "withdrawn": "Retirée",
+      "completed": "Mission réalisée"
     },
     "thread": "Échanges",
     "reply": "Écrire au bénévole",
@@ -268,7 +269,14 @@
     "formTitle": "Ce que les bénévoles vous répondront",
     "formHint": "Prénom, ville, email et téléphone sont ajoutés automatiquement.",
     "applicationsTitle": "Candidatures",
-    "places": "{count, plural, one {# place} other {# places}}"
+    "places": "{count, plural, one {# place} other {# places}}",
+    "complete": "Marquer la mission comme réalisée",
+    "completeHint": "Une fois la mission passée, confirmez-la ici : le ou la bénévole reçoit un badge et un e-mail de remerciement.",
+    "undoComplete": "Annuler : la mission n'est pas encore faite",
+    "trackRecord": "{count, plural, =0 {Nouveau sur Aido, aucune mission réalisée} one {# mission réalisée sur Aido} other {# missions réalisées sur Aido}}",
+    "skills": "Compétences",
+    "cares": "Sensible à : {causes}",
+    "linkedin": "Profil LinkedIn"
   },
   "apply": {
     "button": "Postuler sur Aido",
@@ -329,7 +337,8 @@
       "accepted": "Acceptées",
       "online": "Missions en ligne",
       "applications": "Candidatures",
-      "toReview": "À traiter"
+      "toReview": "À traiter",
+      "completed": "Missions réalisées"
     },
     "saved": "Missions gardées",
     "savedHint": "Gardées sur cet appareil.",
@@ -352,7 +361,11 @@
     "phone": "Téléphone",
     "phoneHint": "Partagé uniquement avec les associations auxquelles vous postulez.",
     "about": "Quelques mots sur moi",
-    "aboutPlaceholder": "Ce que vous aimez faire, vos compétences, vos disponibilités…"
+    "aboutPlaceholder": "Ce que vous aimez faire, vos compétences, vos disponibilités…",
+    "linkedin": "LinkedIn",
+    "linkedinPlaceholder": "https://www.linkedin.com/in/…",
+    "linkedinHint": "Facultatif. Une expertise à partager (droit, design, comptabilité…) ? Les associations auxquelles vous postulez la verront.",
+    "invalid": "Vérifiez l'adresse LinkedIn : elle doit commencer par https://www.linkedin.com/"
   },
   "orgProfile": {
     "title": "Profil de l'association",
@@ -365,5 +378,74 @@
     "descriptionPlaceholder": "Votre cause, qui vous aidez, la place des bénévoles…",
     "descriptionHint": "L'IA s'en sert pour rédiger vos missions.",
     "invalid": "Vérifiez l'e-mail et l'adresse du site (elle doit commencer par https://)."
+  },
+  "understood": {
+    "eyebrow": "Compris par Aido",
+    "title": "Vos centres d'intérêt et compétences",
+    "hint": "Retenus de vos échanges avec Aido. Retirez ce qui ne va pas, ajoutez ce qui manque.",
+    "causes": "Les causes qui vous tiennent à cœur",
+    "interests": "Centres d'intérêt",
+    "skills": "Compétences",
+    "nothingYet": "Rien pour l'instant.",
+    "addSkill": "Ajouter une compétence",
+    "addInterest": "Ajouter un centre d'intérêt",
+    "add": "Ajouter",
+    "remove": "Retirer {label}",
+    "empty": "Dites à Aido ce que vous aimeriez faire : ce qu'il comprend de vous apparaîtra ici.",
+    "chatCta": "Parler à Aido",
+    "visibility": "Les associations auxquelles vous postulez voient vos compétences et vos causes, jamais vos conversations.",
+    "error": "Impossible d'enregistrer. Réessayez."
+  },
+  "badges": {
+    "title": "Mes badges",
+    "hint": "Gagnés chaque fois qu'une association confirme une mission que vous avez réalisée.",
+    "count": "{earned} / {total}",
+    "next": "Encore {remaining, plural, one {# mission} other {# missions}} pour débloquer {name}",
+    "progressLabel": "Progression vers {name}",
+    "completedCount": "{count, plural, =0 {Aucune mission réalisée} one {# mission réalisée} other {# missions réalisées}}",
+    "allDone": "Tous les paliers sont débloqués. Vous êtes une légende.",
+    "celebrateEyebrow": "Nouveau badge débloqué",
+    "earnedOn": "Obtenu le {date}",
+    "new": "Nouveau",
+    "emptyCta": "Votre première mission débloque votre premier badge.",
+    "findMission": "Trouver une mission",
+    "causeDescription": "Une mission réalisée : {cause}",
+    "items": {
+      "first-application": {
+        "name": "Premier pas",
+        "description": "Envoyer sa première candidature"
+      },
+      "first-mission": {
+        "name": "Première mission",
+        "description": "Réaliser 1 mission"
+      },
+      "regular": {
+        "name": "Sur sa lancée",
+        "description": "Réaliser 3 missions"
+      },
+      "pillar": {
+        "name": "Pilier",
+        "description": "Réaliser 5 missions"
+      },
+      "legend": {
+        "name": "Légende",
+        "description": "Réaliser 10 missions"
+      }
+    },
+    "causeNames": {
+      "solidarity": "Cœur solidaire",
+      "education": "Passe-savoir",
+      "health": "Prendre soin",
+      "environment": "Main verte",
+      "animals": "Patte tendue",
+      "culture": "Esprit culture",
+      "sport": "Esprit d'équipe",
+      "digital": "Coup de pouce numérique",
+      "humanitarian": "Main tendue au monde",
+      "citizenship": "Citoyenneté active",
+      "emergency": "Premiers secours",
+      "employment": "Tremplin emploi",
+      "research": "Esprit curieux"
+    }
   }
 }

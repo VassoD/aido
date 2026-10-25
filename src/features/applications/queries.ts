@@ -2,6 +2,8 @@ import "server-only";
 
 import { z } from "zod";
 
+import { computeBadges, type BadgeProgress, type CompletedMission } from "@/features/volunteers/badges";
+import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import type { AppSupabaseClient } from "@/lib/supabase/server";
 
 const answersSchema = z.array(z.object({ question: z.string(), answer: z.string() })).catch([]);
@@ -25,11 +27,21 @@ export interface ApplicationView {
 }
 
 export interface ApplicantView extends ApplicationView {
-  volunteer: { firstName: string | null; city: string | null; email: string | null; phone: string | null };
+  volunteer: {
+    firstName: string | null;
+    city: string | null;
+    email: string | null;
+    phone: string | null;
+    linkedinUrl: string | null;
+    skills: string[];
+    causes: string[];
+    badges: BadgeProgress;
+  };
 }
 
 export interface MyApplicationView extends ApplicationView {
-  mission: { id: string; title: string; city: string | null; organizationName: string; contactEmail: string | null };
+  completedAt: string | null;
+  mission: { id: string; title: string; city: string | null; cause: string; organizationName: string; contactEmail: string | null };
 }
 
 async function loadThreads(
@@ -53,6 +65,30 @@ async function loadThreads(
     threads.set(message.application_id, thread);
   }
   return threads;
+}
+
+/**
+ * Badges are a volunteer's public track record, so they count missions completed with any association.
+ * Row level security only shows this association's own applications, hence the admin client; callers
+ * must already have proven the viewer owns a mission these volunteers applied to.
+ */
+async function loadCompletedMissions(volunteerIds: string[]): Promise<Map<string, CompletedMission[]>> {
+  const completed = new Map<string, CompletedMission[]>();
+  if (volunteerIds.length === 0) return completed;
+
+  const { data, error } = await getSupabaseAdmin()
+    .from("applications")
+    .select("volunteer_id, completed_at, mission:missions!inner(cause)")
+    .eq("status", "completed")
+    .in("volunteer_id", volunteerIds);
+  if (error) throw error;
+
+  for (const row of data ?? []) {
+    const missions = completed.get(row.volunteer_id) ?? [];
+    missions.push({ cause: row.mission.cause, completedAt: row.completed_at ?? "" });
+    completed.set(row.volunteer_id, missions);
+  }
+  return completed;
 }
 
 export interface MissionWithApplicants {
@@ -94,10 +130,14 @@ export async function getMissionApplicants(
 
   const volunteerIds = (applications ?? []).map((application) => application.volunteer_id);
   const { data: profiles, error: profileError } = volunteerIds.length
-    ? await supabase.from("volunteer_profiles").select("user_id, first_name, city, contact_email, phone").in("user_id", volunteerIds)
+    ? await supabase
+        .from("volunteer_profiles")
+        .select("user_id, first_name, city, contact_email, phone, linkedin_url, skills, causes")
+        .in("user_id", volunteerIds)
     : { data: [], error: null };
   if (profileError) throw profileError;
   const profileById = new Map((profiles ?? []).map((profile) => [profile.user_id, profile]));
+  const completedByVolunteer = await loadCompletedMissions(volunteerIds);
 
   const threads = await loadThreads(supabase, (applications ?? []).map((application) => application.id), viewerId);
 
@@ -128,6 +168,13 @@ export async function getMissionApplicants(
           city: profile?.city ?? null,
           email: profile?.contact_email ?? null,
           phone: profile?.phone ?? null,
+          linkedinUrl: profile?.linkedin_url ?? null,
+          skills: profile?.skills ?? [],
+          causes: profile?.causes ?? [],
+          badges: computeBadges({
+            firstApplicationAt: application.created_at,
+            completed: completedByVolunteer.get(application.volunteer_id) ?? [],
+          }),
         },
       };
     }),
@@ -138,7 +185,7 @@ export async function getMyApplications(supabase: AppSupabaseClient, userId: str
   const { data, error } = await supabase
     .from("applications")
     .select(
-      "id, status, created_at, answers, motivation, fit_summary, mission:missions!inner(id, title, city, organization:organizations!inner(name, contact_email))",
+      "id, status, created_at, completed_at, answers, motivation, fit_summary, mission:missions!inner(id, title, city, cause, organization:organizations!inner(name, contact_email))",
     )
     .eq("volunteer_id", userId)
     .order("created_at", { ascending: false });
@@ -150,6 +197,7 @@ export async function getMyApplications(supabase: AppSupabaseClient, userId: str
     id: application.id,
     status: application.status,
     createdAt: application.created_at,
+    completedAt: application.completed_at,
     answers: answersSchema.parse(application.answers),
     motivation: application.motivation,
     // The association's private triage note is not shown to the volunteer.
@@ -159,6 +207,7 @@ export async function getMyApplications(supabase: AppSupabaseClient, userId: str
       id: application.mission.id,
       title: application.mission.title,
       city: application.mission.city,
+      cause: application.mission.cause,
       organizationName: application.mission.organization.name,
       contactEmail: application.mission.organization.contact_email,
     },

@@ -7,6 +7,7 @@ import { ApplicationThread } from "@/features/applications/components/Applicatio
 import { StatusPill } from "@/features/applications/components/StatusPill";
 import { getMissionApplicants } from "@/features/applications/queries";
 import { SignInForm } from "@/features/auth/SignInForm";
+import { ApplicantProfile } from "@/features/volunteers/components/ApplicantProfile";
 import { PageSkeleton } from "@/features/ui/PageSkeleton";
 import { Chevron } from "@/features/ui/Chevron";
 import { SiteHeader } from "@/features/ui/SiteHeader";
@@ -101,6 +102,8 @@ async function Applicants({ locale, missionId, justPublished }: ApplicantsProps)
                 </div>
                 <StatusPill status={applicant.status} />
               </div>
+
+              <ApplicantProfile volunteer={applicant.volunteer} />
 
               {applicant.fitSummary && (
                 <div className="rounded-xl bg-sun-soft px-4 py-3">

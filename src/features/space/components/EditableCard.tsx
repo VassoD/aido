@@ -152,7 +152,13 @@ export function EditableCard<TName extends string>({
             <div key={field.name} className={`flex flex-col gap-0.5 ${field.type === "textarea" ? "sm:col-span-2" : ""}`}>
               <dt className="text-sm text-muted">{field.label}</dt>
               <dd className={field.value ? "whitespace-pre-line break-words text-text" : "italic text-muted"}>
-                {field.value || t("empty")}
+                {field.type === "url" && field.value ? (
+                  <a href={field.value} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-ink">
+                    {field.value.replace(/^https:\/\/(www\.)?/, "")}
+                  </a>
+                ) : (
+                  field.value || t("empty")
+                )}
               </dd>
             </div>
           ))}

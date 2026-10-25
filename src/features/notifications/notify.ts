@@ -2,6 +2,7 @@ import "server-only";
 
 import {
   applicationDecisionEmail,
+  missionCompletedEmail,
   newApplicationEmail,
   newMessageEmail,
 } from "@/features/notifications/email-templates";
@@ -91,6 +92,23 @@ export async function notifyApplicationDecision(
     to: { email: context.volunteerEmail, name: context.volunteerName },
     replyTo: context.organizationEmail ? { email: context.organizationEmail, name: context.organizationName } : undefined,
     tag: `application-${status}`,
+    ...email,
+  });
+}
+
+/** Thanks the volunteer once the association confirms the mission was done, and points them to their badges. */
+export async function notifyMissionCompleted(applicationId: string, origin: string): Promise<void> {
+  const context = await loadApplicationContext(applicationId);
+  if (!context?.volunteerEmail) return;
+  const email = missionCompletedEmail({
+    volunteerName: context.volunteerName,
+    organizationName: context.organizationName,
+    missionTitle: context.missionTitle,
+    badgesUrl: `${origin}/${EMAIL_LOCALE}/me#badges`,
+  });
+  await sendEmail({
+    to: { email: context.volunteerEmail, name: context.volunteerName },
+    tag: "mission-completed",
     ...email,
   });
 }

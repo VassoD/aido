@@ -8,8 +8,8 @@ import { supabaseUrl } from "@/lib/supabase/env";
 let adminClient: AppSupabaseClient | null = null;
 
 /**
- * Bypasses row level security. Only for writes the server must vouch for:
- * register-verified organizations and AI fit summaries.
+ * Bypasses row level security. Only for writes the server must vouch for (register-verified
+ * organizations, AI fit summaries) and cross-association reads such as volunteer badge counts.
  */
 export function getSupabaseAdmin(): AppSupabaseClient {
   const secretKey = process.env.SUPABASE_SECRET_KEY;

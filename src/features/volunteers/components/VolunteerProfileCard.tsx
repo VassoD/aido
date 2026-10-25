@@ -13,6 +13,7 @@ export function VolunteerProfileCard({ profile }: { profile: VolunteerProfile | 
       title={t("title")}
       hint={t("hint")}
       save={updateVolunteerProfileAction}
+      invalidMessage={t("invalid")}
       fields={[
         { name: "firstName", label: t("firstName"), value: profile?.firstName ?? "", autoComplete: "given-name", maxLength: 80 },
         { name: "city", label: t("city"), value: profile?.city ?? "", autoComplete: "address-level2", maxLength: 120 },
@@ -24,6 +25,16 @@ export function VolunteerProfileCard({ profile }: { profile: VolunteerProfile | 
           autoComplete: "tel",
           hint: t("phoneHint"),
           maxLength: 40,
+        },
+        {
+          name: "linkedinUrl",
+          label: t("linkedin"),
+          value: profile?.linkedinUrl ?? "",
+          type: "url",
+          autoComplete: "url",
+          placeholder: t("linkedinPlaceholder"),
+          hint: t("linkedinHint"),
+          maxLength: 300,
         },
         {
           name: "about",

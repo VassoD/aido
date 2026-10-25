@@ -20,6 +20,7 @@ import type { MatchingAgentUIMessage } from "@/features/matching/matching-agent"
 import { DEFAULT_COUNTRY } from "@/features/missions/country-options";
 import type { Mission } from "@/features/missions/mission";
 import type { MissionSearchQuery } from "@/features/missions/search-query";
+import { rememberUnderstandingAction } from "@/features/volunteers/actions";
 
 const EXAMPLE_KEYS = ["one", "two", "three"] as const;
 const TYPING_DOTS = [0, 1, 2];
@@ -34,6 +35,28 @@ function latestSearchQuery(messages: MatchingAgentUIMessage[]): MissionSearchQue
     }
   }
   return null;
+}
+
+/**
+ * Saves what the assistant understood (causes, interests, skills) on a signed-in volunteer's profile,
+ * once per new search. Anonymous visitors are turned away by the server and nothing is kept.
+ */
+function useRememberUnderstanding(profile: MissionSearchQuery | null, isBusy: boolean): void {
+  const rememberedRef = useRef<string | null>(null);
+  const causes = profile?.causes?.filter((cause) => cause !== "other") ?? [];
+  const interests = profile?.interests ?? [];
+  const skills = profile?.skills ?? [];
+  const key = JSON.stringify([causes, interests, skills]);
+  const isEmpty = causes.length + interests.length + skills.length === 0;
+
+  useEffect(() => {
+    if (isBusy || isEmpty || key === rememberedRef.current) return;
+    rememberedRef.current = key;
+    const [savedCauses, savedInterests, savedSkills] = JSON.parse(key) as [typeof causes, string[], string[]];
+    void rememberUnderstandingAction({ causes: savedCauses, interests: savedInterests, skills: savedSkills }).catch(() => {
+      // Best effort: the chat works the same without it.
+    });
+  }, [key, isBusy, isEmpty]);
 }
 
 export function ChatExperience(): React.ReactElement {
@@ -54,6 +77,7 @@ export function ChatExperience(): React.ReactElement {
 
   const isBusy = status === "submitted" || status === "streaming";
   const profile = useMemo(() => latestSearchQuery(messages), [messages]);
+  useRememberUnderstanding(profile, isBusy);
   const hasConversation = messages.length > 0;
   const { pin } = useFollowBottom(conversationRef, composerRef, hasConversation);
 

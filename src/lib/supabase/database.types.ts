@@ -42,6 +42,7 @@ export type Database = {
       applications: {
         Row: {
           answers: Json;
+          completed_at: string | null;
           created_at: string;
           fit_summary: string | null;
           id: string;
@@ -53,6 +54,7 @@ export type Database = {
         };
         Insert: {
           answers?: Json;
+          completed_at?: string | null;
           created_at?: string;
           fit_summary?: string | null;
           id?: string;
@@ -64,6 +66,7 @@ export type Database = {
         };
         Update: {
           answers?: Json;
+          completed_at?: string | null;
           created_at?: string;
           fit_summary?: string | null;
           id?: string;
@@ -232,31 +235,43 @@ export type Database = {
       volunteer_profiles: {
         Row: {
           about: string | null;
+          causes: string[];
           city: string | null;
           contact_email: string | null;
           created_at: string;
           first_name: string | null;
+          interests: string[];
+          linkedin_url: string | null;
           phone: string | null;
+          skills: string[];
           updated_at: string;
           user_id: string;
         };
         Insert: {
           about?: string | null;
+          causes?: string[];
           city?: string | null;
           contact_email?: string | null;
           created_at?: string;
           first_name?: string | null;
+          interests?: string[];
+          linkedin_url?: string | null;
           phone?: string | null;
+          skills?: string[];
           updated_at?: string;
           user_id: string;
         };
         Update: {
           about?: string | null;
+          causes?: string[];
           city?: string | null;
           contact_email?: string | null;
           created_at?: string;
           first_name?: string | null;
+          interests?: string[];
+          linkedin_url?: string | null;
           phone?: string | null;
+          skills?: string[];
           updated_at?: string;
           user_id?: string;
         };

@@ -252,7 +252,8 @@
       "pending": "To review",
       "accepted": "Accepted",
       "declined": "Declined",
-      "withdrawn": "Withdrawn"
+      "withdrawn": "Withdrawn",
+      "completed": "Mission done"
     },
     "thread": "Messages",
     "reply": "Write to the volunteer",
@@ -268,7 +269,14 @@
     "formTitle": "What volunteers will answer",
     "formHint": "First name, city, email and phone are added automatically.",
     "applicationsTitle": "Applications",
-    "places": "{count, plural, one {# place} other {# places}}"
+    "places": "{count, plural, one {# place} other {# places}}",
+    "complete": "Mark mission as done",
+    "completeHint": "Once the mission has happened, confirm it here: the volunteer earns a badge and a thank-you email.",
+    "undoComplete": "Undo: the mission isn't done yet",
+    "trackRecord": "{count, plural, =0 {New on Aido, no mission completed yet} one {# mission completed on Aido} other {# missions completed on Aido}}",
+    "skills": "Skills",
+    "cares": "Cares about {causes}",
+    "linkedin": "LinkedIn profile"
   },
   "apply": {
     "button": "Apply on Aido",
@@ -329,7 +337,8 @@
       "accepted": "Accepted",
       "online": "Missions online",
       "applications": "Applications",
-      "toReview": "To review"
+      "toReview": "To review",
+      "completed": "Missions done"
     },
     "saved": "Saved missions",
     "savedHint": "Kept on this device.",
@@ -352,7 +361,11 @@
     "phone": "Phone",
     "phoneHint": "Only shared with organizations you apply to.",
     "about": "A few words about me",
-    "aboutPlaceholder": "What you enjoy, your skills, when you're free…"
+    "aboutPlaceholder": "What you enjoy, your skills, when you're free…",
+    "linkedin": "LinkedIn",
+    "linkedinPlaceholder": "https://www.linkedin.com/in/…",
+    "linkedinHint": "Optional. Have expertise to offer (law, design, accounting…)? Organizations you apply to will see it.",
+    "invalid": "Check the LinkedIn address: it should start with https://www.linkedin.com/"
   },
   "orgProfile": {
     "title": "Organization profile",
@@ -365,5 +378,74 @@
     "descriptionPlaceholder": "Your cause, who you help, how volunteers fit in…",
     "descriptionHint": "The AI uses it to write your missions.",
     "invalid": "Check the email and the website address (it should start with https://)."
+  },
+  "understood": {
+    "eyebrow": "Learned by Aido",
+    "title": "Your interests and skills",
+    "hint": "Picked up from your conversations with Aido. Remove what's off, add what's missing.",
+    "causes": "Causes you care about",
+    "interests": "Interests",
+    "skills": "Skills",
+    "nothingYet": "Nothing yet.",
+    "addSkill": "Add a skill",
+    "addInterest": "Add an interest",
+    "add": "Add",
+    "remove": "Remove {label}",
+    "empty": "Tell Aido what you'd like to do: what it learns about you will show up here.",
+    "chatCta": "Talk to Aido",
+    "visibility": "Organizations you apply to see your skills and causes, never your conversations.",
+    "error": "We couldn't save that. Try again."
+  },
+  "badges": {
+    "title": "My badges",
+    "hint": "Earned each time an organization confirms a mission you did.",
+    "count": "{earned} / {total}",
+    "next": "{remaining, plural, one {# more mission} other {# more missions}} to unlock {name}",
+    "progressLabel": "Progress towards {name}",
+    "completedCount": "{count, plural, =0 {No mission done yet} one {# mission done} other {# missions done}}",
+    "allDone": "Every milestone unlocked. You're a legend.",
+    "celebrateEyebrow": "New badge unlocked",
+    "earnedOn": "Earned {date}",
+    "new": "New",
+    "emptyCta": "Your first mission unlocks your first badge.",
+    "findMission": "Find a mission",
+    "causeDescription": "One mission done for {cause}",
+    "items": {
+      "first-application": {
+        "name": "First step",
+        "description": "Send your first application"
+      },
+      "first-mission": {
+        "name": "First mission",
+        "description": "Complete 1 mission"
+      },
+      "regular": {
+        "name": "On a roll",
+        "description": "Complete 3 missions"
+      },
+      "pillar": {
+        "name": "Pillar",
+        "description": "Complete 5 missions"
+      },
+      "legend": {
+        "name": "Legend",
+        "description": "Complete 10 missions"
+      }
+    },
+    "causeNames": {
+      "solidarity": "Kind heart",
+      "education": "Knowledge sharer",
+      "health": "Caregiver",
+      "environment": "Green thumb",
+      "animals": "Animal ally",
+      "culture": "Culture keeper",
+      "sport": "Team spirit",
+      "digital": "Digital helper",
+      "humanitarian": "World helper",
+      "citizenship": "Active citizen",
+      "emergency": "First responder",
+      "employment": "Career booster",
+      "research": "Curious mind"
+    }
   }
 }

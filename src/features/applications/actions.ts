@@ -5,7 +5,12 @@ import { z } from "zod";
 
 import { prefillApplication, summarizeFit, type ApplicationPrefill } from "@/features/applications/application-ai";
 import { getInAppMission } from "@/features/missions/aido-missions";
-import { notifyApplicationDecision, notifyNewApplication, notifyNewMessage } from "@/features/notifications/notify";
+import {
+  notifyApplicationDecision,
+  notifyMissionCompleted,
+  notifyNewApplication,
+  notifyNewMessage,
+} from "@/features/notifications/notify";
 import type { Mission } from "@/features/missions/mission";
 import { getVolunteerProfile, type VolunteerProfile } from "@/features/volunteers/queries";
 import { fail, ok, type ActionResult } from "@/lib/action-result";
@@ -136,7 +141,7 @@ export async function submitApplicationAction(input: SubmitApplicationInput): Pr
 
 const statusSchema = z.object({
   applicationId: z.uuid(),
-  status: z.enum(["accepted", "declined", "pending", "withdrawn"]),
+  status: z.enum(["accepted", "declined", "pending", "withdrawn", "completed"]),
 });
 
 export async function updateApplicationStatusAction(
@@ -164,6 +169,10 @@ export async function updateApplicationStatusAction(
   if (decision === "accepted" || decision === "declined") {
     const origin = await requestOrigin();
     after(() => notifyApplicationDecision(parsed.data.applicationId, decision, origin));
+  }
+  if (decision === "completed") {
+    const origin = await requestOrigin();
+    after(() => notifyMissionCompleted(parsed.data.applicationId, origin));
   }
   return ok(null);
 }

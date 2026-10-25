@@ -111,6 +111,19 @@ async function main(): Promise<void> {
     const volunteerThread = await volunteer.client.from("application_messages").select("id").eq("application_id", applicationId);
     check("volunteer reads both messages", volunteerThread.data?.length === 2);
 
+    const selfComplete = await volunteer.client.from("applications").update({ status: "completed" }).eq("id", applicationId);
+    check("volunteer cannot mark their own mission as done", selfComplete.error !== null, selfComplete.error?.message);
+    const complete = await owner.client.from("applications").update({ status: "completed" }).eq("id", applicationId).select("status, completed_at");
+    check("owner can mark an accepted mission as done", complete.data?.[0]?.status === "completed", complete.error?.message);
+    check("completion date is set by the database", Boolean(complete.data?.[0]?.completed_at));
+    const forgedDate = await owner.client.from("applications").update({ completed_at: "2020-01-01" }).eq("id", applicationId);
+    check("completion date cannot be forged", forgedDate.error !== null, forgedDate.error?.code);
+    const undo = await owner.client.from("applications").update({ status: "accepted" }).eq("id", applicationId).select("completed_at");
+    check("undoing completion clears the date", undo.data?.[0]?.completed_at === null, undo.error?.message);
+    await owner.client.from("applications").update({ status: "declined" }).eq("id", applicationId);
+    const completeDeclined = await owner.client.from("applications").update({ status: "completed" }).eq("id", applicationId);
+    check("a declined application cannot be completed", completeDeclined.error !== null, completeDeclined.error?.message);
+
     const missionDelete = await owner.client.from("missions").delete().eq("id", missionId);
     check("missions cannot be hard-deleted by clients", missionDelete.error !== null, missionDelete.error?.code);
   } finally {

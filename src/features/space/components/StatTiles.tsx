@@ -7,7 +7,7 @@ export interface StatTile {
 
 export function StatTiles({ label, stats }: { label: string; stats: StatTile[] }): React.ReactElement {
   return (
-    <dl aria-label={label} className="grid grid-cols-3 gap-2 sm:gap-3">
+    <dl aria-label={label} className={`grid gap-2 sm:gap-3 ${stats.length === 4 ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"}`}>
       {stats.map((stat) => (
         <div
           key={stat.label}

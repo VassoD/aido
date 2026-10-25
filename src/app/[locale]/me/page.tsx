@@ -11,7 +11,11 @@ import { getOwnedOrganization } from "@/features/organizations/queries";
 import { SavedMissionsList } from "@/features/space/components/SavedMissionsList";
 import { SpaceHeader } from "@/features/space/components/SpaceHeader";
 import { StatTiles } from "@/features/space/components/StatTiles";
+import { computeBadges } from "@/features/volunteers/badges";
+import { BadgeShelf } from "@/features/volunteers/components/BadgeShelf";
+import { UnderstoodCard } from "@/features/volunteers/components/UnderstoodCard";
 import { VolunteerProfileCard } from "@/features/volunteers/components/VolunteerProfileCard";
+import { toUnderstood } from "@/features/volunteers/profile-tags";
 import { getVolunteerProfile } from "@/features/volunteers/queries";
 import { PageSkeleton } from "@/features/ui/PageSkeleton";
 import { SiteHeader } from "@/features/ui/SiteHeader";
@@ -95,6 +99,20 @@ async function VolunteerSpace({ locale, explicitTab }: VolunteerSpaceProps): Pro
   if (organization && applications.length === 0) return redirect({ href: "/asso", locale });
 
   const active = applications.filter((application) => application.status !== "withdrawn");
+  const completed = applications.filter((application) => application.status === "completed");
+  const badges = computeBadges({
+    firstApplicationAt: applications.at(-1)?.createdAt ?? null,
+    completed: completed.map((application) => ({
+      cause: application.mission.cause,
+      completedAt: application.completedAt ?? application.createdAt,
+    })),
+    causesOfInterest: profile?.causes,
+  });
+  const understood = toUnderstood({
+    causes: profile?.causes ?? [],
+    interests: profile?.interests ?? [],
+    skills: profile?.skills ?? [],
+  });
   return (
     <div className="flex flex-col gap-8">
       <SpaceHeader
@@ -112,11 +130,15 @@ async function VolunteerSpace({ locale, explicitTab }: VolunteerSpaceProps): Pro
             {
               label: t("stats.accepted"),
               value: active.filter((application) => application.status === "accepted").length,
-              highlight: true,
             },
+            { label: t("stats.completed"), value: completed.length, highlight: true },
           ]}
         />
       )}
+
+      <BadgeShelf progress={badges} />
+
+      <UnderstoodCard initial={understood} />
 
       <VolunteerProfileCard profile={profile} />
 
