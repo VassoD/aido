@@ -35,6 +35,8 @@ for (const [index, text] of turns.entries()) {
       const name = part.type.slice(5);
       if (name === "draftApplication" && part.output) {
         console.log("DRAFT CARD:", JSON.stringify({ mission: part.output.mission?.title, firstName: part.output.firstName, city: part.output.city, answers: part.output.answers.map((a) => `${a.question} => ${a.answer}`), motivation: part.output.motivation }, null, 2));
+      } else if (name === "recommendMissions" && part.output) {
+        console.log("RECOMMENDED:", part.output.recommendations.map((r) => `${r.mission.inApp ? "[AIDO] " : ""}${r.mission.title.slice(0, 60)}`));
       } else console.log("TOOL:", name, part.state);
     }
   }
