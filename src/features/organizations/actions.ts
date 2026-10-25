@@ -88,7 +88,9 @@ export async function draftMissionAction(formData: FormData): Promise<ActionResu
       text: parsed.data.text,
       pdf: pdf ? { data: new Uint8Array(await pdf.arrayBuffer()), filename: pdf.name } : undefined,
     });
-    return ok(draft);
+    // An on-site mission without a place matches no local search; start from the association's city.
+    const needsPlace = draft.locationMode !== "remote" && !draft.city;
+    return ok(needsPlace ? { ...draft, city: organization.city ?? null } : draft);
   } catch (error) {
     logger.error("missions.draft_failed", { organizationId: organization.id, error: String(error) });
     return fail("AI_UNAVAILABLE");
@@ -106,8 +108,9 @@ export async function publishMissionAction(draft: MissionDraft): Promise<ActionR
   const organization = await getOwnedOrganization(supabase, user.id);
   if (!organization) return fail("NOT_FOUND");
 
-  const place = mission.city
-    ? await getCountryRuntime(organization.country_code).geocoder.geocode(mission.city).catch(() => null)
+  const city = mission.city ?? (mission.locationMode === "remote" ? null : organization.city);
+  const place = city
+    ? await getCountryRuntime(organization.country_code).geocoder.geocode(city).catch(() => null)
     : null;
 
   const { data, error } = await supabase
@@ -117,7 +120,7 @@ export async function publishMissionAction(draft: MissionDraft): Promise<ActionR
       title: mission.title,
       description: mission.description,
       country_code: organization.country_code,
-      city: place?.label ?? mission.city,
+      city: place?.label ?? city,
       postal_code: place?.postalCode ?? null,
       admin_area_code: place?.adminAreaCode ?? null,
       lat: place?.lat ?? null,

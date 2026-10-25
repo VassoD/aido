@@ -58,6 +58,9 @@ function trimForCard(mission: Mission): Mission {
 }
 
 function createTools(countryCode: string) {
+  // Missions posted on Aido from the latest search, so recommendations can be checked against them.
+  let inAppCandidates: { id: string; title: string }[] = [];
+
   return {
     web_search: openai.tools.webSearch({
       searchContextSize: "low",
@@ -84,7 +87,13 @@ function createTools(countryCode: string) {
       description:
         "Search real, currently open volunteering missions near a place or remote, filtered and pre-ranked for the person. Returns up to 25 candidates.",
       inputSchema: missionSearchQuerySchema,
-      execute: async (query, { abortSignal }) => searchMissions(query, countryCode, abortSignal),
+      execute: async (query, { abortSignal }) => {
+        const result = await searchMissions(query, countryCode, abortSignal);
+        if (result.status === "ok") {
+          inAppCandidates = result.candidates.filter((candidate) => candidate.applyInApp).map(({ id, title }) => ({ id, title }));
+        }
+        return result;
+      },
     }),
 
     draftApplication: tool({
@@ -170,13 +179,20 @@ function createTools(countryCode: string) {
         return { recommendations, attribution: getProviderAttribution(countryCode) };
       },
       // The UI gets full mission data; the model only needs to know what was shown.
-      toModelOutput: ({ output }) => ({
-        type: "json",
-        value: {
-          shown: output.recommendations.map(({ mission }) => ({ id: mission.id, title: mission.title })),
-          missingIds: output.recommendations.length === 0 ? "none of the ids were found, search again" : null,
-        },
-      }),
+      toModelOutput: ({ output }) => {
+        const shownIds = new Set(output.recommendations.map(({ mission }) => mission.id));
+        const leftOut = inAppCandidates.filter((candidate) => !shownIds.has(candidate.id));
+        return {
+          type: "json",
+          value: {
+            shown: output.recommendations.map(({ mission }) => ({ id: mission.id, title: mission.title })),
+            missingIds: output.recommendations.length === 0 ? "none of the ids were found, search again" : null,
+            inAppLeftOut: leftOut.length
+              ? `These missions posted on Aido were not shown: ${leftOut.map((candidate) => `${candidate.id} (${candidate.title})`).join("; ")}. Unless one is clearly a different cause or place, call recommendMissions again with them first and the others after, and mention the detail to confirm in the reason.`
+              : null,
+          },
+        };
+      },
     }),
   };
 }
