@@ -107,7 +107,11 @@ function createTools(countryCode: string) {
           .array(
             z.object({
               questionId: z.string(),
-              answer: z.string().max(1000).nullable().describe("From what the person said; null if unknown. Never invent."),
+              answer: z
+                .string()
+                .max(1000)
+                .nullable()
+                .describe('From what the person said; null if unknown. Never invent. For yes_no questions, just "yes" or "no".'),
             }),
           )
           .max(10),

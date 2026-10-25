@@ -4,9 +4,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 
 import { submitApplicationAction } from "@/features/applications/actions";
+import { parseYesNo, type YesNo } from "@/features/applications/yes-no";
 import { SignInForm } from "@/features/auth/SignInForm";
 import { clearDraftEdits, readDraftEdits, stashDraftEdits, type DraftEdits } from "@/features/chat/chat-persistence";
-import type { ApplicationDraftOutput } from "@/features/matching/matching-agent";
+import type { ApplicationDraftOutput, DraftedAnswer } from "@/features/matching/matching-agent";
 import { FIELD_LABEL, TEXT_INPUT } from "@/features/ui/styles";
 import { Link } from "@/i18n/navigation";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -19,12 +20,18 @@ interface ApplicationDraftCardProps {
   onBeforeSignIn: () => void;
 }
 
-function initialEdits(draft: ApplicationDraftOutput): DraftEdits {
+function initialAnswer(entry: DraftedAnswer, yesNoLabel: (value: YesNo) => string): string {
+  if (entry.kind !== "yes_no") return entry.answer ?? "";
+  const parsed = parseYesNo(entry.answer);
+  return parsed ? yesNoLabel(parsed) : "";
+}
+
+function initialEdits(draft: ApplicationDraftOutput, yesNoLabel: (value: YesNo) => string): DraftEdits {
   return {
     firstName: draft.firstName ?? "",
     city: draft.city ?? "",
     motivation: draft.motivation ?? "",
-    answers: Object.fromEntries(draft.answers.map((entry) => [entry.questionId, entry.answer ?? ""])),
+    answers: Object.fromEntries(draft.answers.map((entry) => [entry.questionId, initialAnswer(entry, yesNoLabel)])),
   };
 }
 
@@ -35,7 +42,7 @@ export function ApplicationDraftCard({ draft, onBeforeSignIn }: ApplicationDraft
   const mission = draft.mission;
   // Chat cards only render in the browser, so storage is available here.
   const [edits, setEdits] = useState<DraftEdits>(
-    () => (mission ? readDraftEdits(mission.sourceId) : null) ?? initialEdits(draft),
+    () => (mission ? readDraftEdits(mission.sourceId) : null) ?? initialEdits(draft, (value) => t(value)),
   );
   const [state, setState] = useState<SendState>("idle");
   const [error, setError] = useState<string | null>(null);

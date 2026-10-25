@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
 
 import { prefillApplicationAction, submitApplicationAction } from "@/features/applications/actions";
+import { parseYesNo, YES_NO_OPTIONS } from "@/features/applications/yes-no";
 import { SignInForm } from "@/features/auth/SignInForm";
 import type { Mission } from "@/features/missions/mission";
 import { FIELD_LABEL, PRIMARY_BUTTON, SECONDARY_BUTTON, TEXT_INPUT } from "@/features/ui/styles";
@@ -78,7 +79,7 @@ export function ApplyDialog({ mission, transcript, onClose, onBeforeSignIn }: Ap
         city,
         phone,
         motivation,
-        answers: questions.map((question) => ({ questionId: question.id, answer: answers[question.id] ?? "" })),
+        answers: questions.map((question) => ({ questionId: question.id, answer: answerToSend(question.kind, answers[question.id]) })),
       });
       if (result.ok) return setPhase("done");
       if (result.error === "AUTH_REQUIRED") return setPhase("sign-in");
@@ -87,6 +88,13 @@ export function ApplyDialog({ mission, transcript, onClose, onBeforeSignIn }: Ap
   };
 
   const setAnswer = (questionId: string, value: string): void => setAnswers((current) => ({ ...current, [questionId]: value }));
+
+  // The prefill may say "Oui" under an English page, so yes/no answers are compared and sent by meaning.
+  const answerToSend = (kind: string, raw: string | undefined): string => {
+    if (kind !== "yes_no") return raw ?? "";
+    const parsed = parseYesNo(raw);
+    return parsed ? t(parsed) : "";
+  };
 
   return (
     <dialog
@@ -139,22 +147,22 @@ export function ApplyDialog({ mission, transcript, onClose, onBeforeSignIn }: Ap
                   <fieldset className="flex flex-col gap-1.5">
                     <legend className={FIELD_LABEL}>{question.label}</legend>
                     <div className="flex gap-2">
-                      {[t("yes"), t("no")].map((option) => (
+                      {YES_NO_OPTIONS.map((option) => (
                         <label
                           key={option}
                           className={`cursor-pointer rounded-full border px-4 py-1.5 ${
-                            answers[question.id] === option ? "border-ink bg-ink text-paper" : "border-line text-ink"
+                            parseYesNo(answers[question.id]) === option ? "border-ink bg-ink text-paper" : "border-line text-ink"
                           }`}
                         >
                           <input
                             type="radio"
                             name={question.id}
                             value={option}
-                            checked={answers[question.id] === option}
-                            onChange={() => setAnswer(question.id, option)}
+                            checked={parseYesNo(answers[question.id]) === option}
+                            onChange={() => setAnswer(question.id, t(option))}
                             className="sr-only"
                           />
-                          {option}
+                          {t(option)}
                         </label>
                       ))}
                     </div>
