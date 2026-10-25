@@ -1,60 +1,61 @@
-# Vidéo pitch Aido (2 minutes)
+# Aido pitch video (2 minutes)
 
-Vidéo de 2 minutes maximum : l'histoire, la démo et le modèle économique. Environ 230 mots de voix off, soit 1 min 40 de parole, ce qui laisse de la marge pour montrer l'écran sans parler.
+A 2-minute video at most: the story, the demo and the business model. About 220 words of voiceover, around 1 min 30 of speech, which leaves room to show the screen without talking.
 
-## Avant d'enregistrer
+## Before recording
 
-- Même préparation que `docs/DEMO.md` : un profil de navigateur connecté au compte association, un autre au compte bénévole, et `docs/demo/fiche-inscription-benevole.pdf` sur le bureau.
-- Enregistrer l'écran en plusieurs prises, puis monter. Couper l'attente de la recherche (environ 20 s) et celle de la rédaction de la mission.
-- Enregistrer la voix séparément si possible : c'est plus simple pour tenir le chrono.
+- Same setup as `docs/DEMO.md`: one browser profile signed in to the association account, another to the volunteer account, and `docs/demo/fiche-inscription-benevole.pdf` on the desktop.
+- Switch the app to English in both profiles.
+- Record the screen in several takes, then edit. Cut the search wait (about 20 s) and the mission drafting wait.
+- Record the voice separately if possible: it makes the timing easier to hold.
 
 ## Script
 
-### 0:00 à 0:25 · L'histoire
+### 0:00 to 0:25 · The story
 
-**À l'écran :** vous face caméra, ou la page d'accueil d'Aido.
+**On screen:** you on camera, or the Aido home page.
 
-> Quand j'ai voulu devenir famille d'accueil pour un chien à Paris, ça a été difficile. Les annonces étaient éparpillées sur plusieurs sites d'associations. Et quand j'ai enfin trouvé, on m'a envoyé un long formulaire PDF à remplir, signer et renvoyer. Alors j'ai construit Aido, d'abord pour moi.
+> When I wanted to become a foster family for a dog in Paris, it was hard. Listings were scattered across many association websites. And when I finally found one, I was sent a long PDF form to fill in, sign and send back. So I built Aido, first for myself.
 
-### 0:25 à 0:45 · Côté association
+### 0:25 to 0:45 · Association side
 
-**À l'écran :** le PDF de démo (2 pages), puis **Mon espace**, onglet **Association** : déposer le PDF. Montrer l'annonce et les 3 questions générées, puis **Publier**.
+**On screen:** the demo PDF (2 pages), then **My space**, **Association** tab: drop the PDF. Show the generated mission and its 3 questions, then **Post the mission**.
 
-> Ce problème, tous les bénévoles le connaissent. Avec Aido, l'association, vérifiée dans le registre officiel, dépose simplement son ancien formulaire. GPT en fait une annonce claire et trois questions courtes, au lieu de deux pages.
+> Every volunteer knows this problem. With Aido, the association, verified in the official register, just drops its old form. GPT turns it into a clear mission and three short questions, instead of two pages.
 
-### 0:45 à 1:15 · Côté bénévole
+### 0:45 to 1:15 · Volunteer side
 
-**À l'écran :** profil bénévole, écrire dans le chat :
-`Je m'appelle Camille, j'habite Paris 11e, je suis libre le mardi soir et j'aimerais aider pour de l'aide alimentaire.`
-Couper l'attente, puis montrer les critères en étiquettes, la mission Aido en premier, les missions JeVeuxAider et Service Civique, et « Aussi trouvé sur le web ».
+**On screen:** volunteer profile, type in the chat:
+`I'm Camille, I live in Paris 11th, I'm free on Tuesday evenings and I'd like to help with food aid.`
+Cut the wait, then show the criteria as tags, the Aido mission first, the JeVeuxAider and Service Civique missions, and "Also found on the web".
 
-> Côté bénévole, on parle à Aido simplement : où on habite, quand on est libre, ce qu'on aime faire. Aido cherche en même temps sur Aido, JeVeuxAider, le Service Civique et le web, vérifie chaque lien, et propose quelques missions qui correspondent vraiment, en expliquant pourquoi.
+> Volunteers just talk to Aido: where they live, when they're free, what they like doing. Aido searches Aido, JeVeuxAider, Service Civique and the web at the same time, checks every link, and suggests a few missions that really fit, explaining why.
 
-### 1:15 à 1:40 · Postuler sans formulaire
+### 1:15 to 1:40 · Apply without a form
 
-**À l'écran :** **Postuler sur Aido**, répondre en une phrase (« dès le 4 novembre, et oui je peux porter des cartons »), montrer la candidature rédigée, **Envoyer**. Puis compte association : la candidature avec le résumé IA, **Accepter**. Accélérer si besoin.
+**On screen:** **Apply on Aido**, answer in one sentence ("from November 4th, and yes I can carry boxes"), show the drafted application, **Send**. Then the association account: the application with its AI summary, **Accept**. Speed up if needed.
 
-> Pour postuler, un clic. Aido connaît déjà presque toutes les réponses, demande seulement ce qui manque, et rédige la candidature. L'association la reçoit prête à lire, avec un résumé de l'adéquation. Plus aucun PDF.
+> Applying takes one click. Aido already knows most of the answers, asks only what's missing, and writes the application. The association gets it ready to read, with a summary of the fit. No more PDFs.
 
-### 1:40 à 2:00 · Modèle économique et fin
+### 1:40 to 2:00 · Business model and closing
 
-**À l'écran :** page d'accueil d'Aido, avec en surimpression : « Gratuit pour les bénévoles et les associations · Payant pour les entreprises ».
+**On screen:** the Aido home page, with an overlay: "Free for volunteers and associations · Paid by companies".
 
-> Aido est gratuit pour les bénévoles et les associations. Les entreprises paieront un abonnement pour le bénévolat de leurs salariés et le mécénat de compétences, défiscalisé à 60 %. Vraies données, GPT à chaque étape, conçu pour tous les pays. Aido : aider, sans la paperasse.
+> Aido is free for volunteers and associations. Companies will pay a subscription for employee volunteering and skills-based sponsorship, which is 60% tax-deductible in France. Real data, GPT at every step, built for any country. Aido: helping, without the paperwork.
 
-## Si le jury pose des questions
+## If the jury asks questions
 
-**Comment gagnez-vous de l'argent ?**
-Les entreprises paient un abonnement annuel pour proposer des missions à leurs salariés (bénévolat, mécénat de compétences avec 60 % de réduction d'impôt, article 238 bis du CGI), avec un tableau de bord pour les RH. Ce marché existe déjà en France, Vendredi le montre. Plus tard : une offre premium pour les associations et des versions en marque blanche pour les collectivités.
+**How do you make money?**
+Companies pay a yearly subscription to offer missions to their employees (volunteering, and skills-based sponsorship, "mécénat de compétences", with a 60% tax reduction under article 238 bis of the French tax code), with a dashboard for HR. This market already exists in France, as Vendredi shows. Later: a premium plan for associations and white-label versions for local authorities.
 
-**Pourquoi pas simplement JeVeuxAider ?**
-JeVeuxAider est une source d'Aido, pas un concurrent. Aido réunit JeVeuxAider, le Service Civique, les missions publiées sur Aido et le web dans une seule conversation, et ajoute ce qui manque : la candidature sans formulaire.
+**Why not just JeVeuxAider?**
+JeVeuxAider is one of Aido's sources, not a competitor. Aido brings JeVeuxAider, Service Civique, missions posted on Aido and the web into one conversation, and adds what's missing: applying without a form.
 
-**Comment savez-vous qu'une association est réelle ?**
-Avant de publier, l'association donne son RNA ou son SIREN, et Aido le vérifie dans le registre officiel. Cela prouve que l'association existe et est active.
+**How do you know an association is real?**
+Before posting, the association enters its RNA or SIREN number, and Aido checks it in the official register. This proves the association exists and is active.
 
-**Et les données personnelles ?**
-Aido ne demande ni adresse, ni date de naissance, ni pièce d'identité quand ce n'est pas nécessaire. L'IA n'envoie jamais rien seule : le bénévole relit et clique lui-même.
+**What about personal data?**
+Aido doesn't ask for an address, date of birth or ID when it isn't needed. The AI never sends anything on its own: the volunteer reviews and clicks.
 
-**Pourquoi GPT ?**
-GPT intervient à chaque étape : comprendre la personne, chercher sur le web, lire un PDF, rédiger la candidature, résumer l'adéquation pour l'association.
+**Why GPT?**
+GPT is used at every step: understanding the person, searching the web, reading a PDF, writing the application, summarizing the fit for the association.
