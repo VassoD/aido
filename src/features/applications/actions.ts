@@ -1,14 +1,16 @@
 "use server";
 
+import { after } from "next/server";
 import { z } from "zod";
 
 import { prefillApplication, summarizeFit, type ApplicationPrefill } from "@/features/applications/application-ai";
 import { getInAppMission } from "@/features/missions/aido-missions";
+import { notifyApplicationDecision, notifyNewApplication, notifyNewMessage } from "@/features/notifications/notify";
 import type { Mission } from "@/features/missions/mission";
 import { fail, ok, type ActionResult } from "@/lib/action-result";
 import { logger } from "@/lib/logger";
 import { RateLimiter } from "@/lib/rate-limit";
-import { requestIp } from "@/lib/request-origin";
+import { requestIp, requestOrigin } from "@/lib/request-origin";
 import { getSupabaseAdmin } from "@/lib/supabase/admin";
 import { createSupabaseServerClient, getSessionUser } from "@/lib/supabase/server";
 
@@ -91,13 +93,18 @@ export async function submitApplicationAction(input: SubmitApplicationInput): Pr
     return fail("INTERNAL_ERROR");
   }
 
-  // The fit summary is a convenience for the association; the application stands without it.
-  try {
-    const summary = await summarizeFit(mission, labelledAnswers, motivation);
-    await getSupabaseAdmin().from("applications").update({ fit_summary: summary }).eq("id", data.id);
-  } catch (summaryError) {
-    logger.warn("applications.fit_summary_failed", { applicationId: data.id, error: String(summaryError) });
-  }
+  // The fit summary and the email run after the response: the volunteer is not kept waiting,
+  // and the application stands even if either fails.
+  const origin = await requestOrigin();
+  after(async () => {
+    try {
+      const summary = await summarizeFit(mission, labelledAnswers, motivation);
+      await getSupabaseAdmin().from("applications").update({ fit_summary: summary }).eq("id", data.id);
+    } catch (summaryError) {
+      logger.warn("applications.fit_summary_failed", { applicationId: data.id, error: String(summaryError) });
+    }
+    await notifyNewApplication(data.id, origin);
+  });
   return ok({ applicationId: data.id });
 }
 
@@ -126,6 +133,12 @@ export async function updateApplicationStatusAction(
     return fail(error.code === "42501" ? "AUTH_REQUIRED" : "INTERNAL_ERROR");
   }
   if (!count) return fail("NOT_FOUND");
+
+  const decision = parsed.data.status;
+  if (decision === "accepted" || decision === "declined") {
+    const origin = await requestOrigin();
+    after(() => notifyApplicationDecision(parsed.data.applicationId, decision, origin));
+  }
   return ok(null);
 }
 
@@ -146,6 +159,9 @@ export async function sendApplicationMessageAction(applicationId: string, body: 
     logger.warn("applications.message_failed", { applicationId, code: error.code });
     return fail("INTERNAL_ERROR");
   }
+
+  const origin = await requestOrigin();
+  after(() => notifyNewMessage(parsed.data.applicationId, user.id, parsed.data.body, origin));
   return ok(null);
 }
 
