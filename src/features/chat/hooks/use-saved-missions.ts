@@ -2,9 +2,12 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 
+import { useSessionUserId } from "@/features/auth/hooks/use-session-user-id";
 import type { Mission } from "@/features/missions/mission";
 
-const STORAGE_KEY = "aido.saved-missions.v1";
+const STORAGE_KEY_PREFIX = "aido.saved-missions.v2.";
+/** Before v2 the list belonged to the browser, so every account on it saw the same missions. */
+const LEGACY_STORAGE_KEY = "aido.saved-missions.v1";
 const EMPTY: SavedMission[] = [];
 
 export type SavedMission = Pick<
@@ -13,11 +16,12 @@ export type SavedMission = Pick<
 >;
 
 const listeners = new Set<() => void>();
-let snapshot: SavedMission[] | null = null;
+const snapshots = new Map<string, SavedMission[]>();
 
-function readStorage(): SavedMission[] {
+function readStorage(key: string): SavedMission[] {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
+    window.localStorage.removeItem(LEGACY_STORAGE_KEY);
+    const raw = window.localStorage.getItem(key);
     const parsed: unknown = raw ? JSON.parse(raw) : [];
     return Array.isArray(parsed) ? (parsed as SavedMission[]) : [];
   } catch {
@@ -25,15 +29,18 @@ function readStorage(): SavedMission[] {
   }
 }
 
-function getSnapshot(): SavedMission[] {
-  snapshot ??= readStorage();
-  return snapshot;
+function getSnapshot(key: string): SavedMission[] {
+  const cached = snapshots.get(key);
+  if (cached) return cached;
+  const stored = readStorage(key);
+  snapshots.set(key, stored);
+  return stored;
 }
 
-function write(next: SavedMission[]): void {
-  snapshot = next;
+function write(key: string, next: SavedMission[]): void {
+  snapshots.set(key, next);
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+    window.localStorage.setItem(key, JSON.stringify(next));
   } catch {
     // Storage can be unavailable (private mode, quota). Saved missions then last for this visit only.
   }
@@ -43,8 +50,8 @@ function write(next: SavedMission[]): void {
 function subscribe(listener: () => void): () => void {
   listeners.add(listener);
   const onStorage = (event: StorageEvent): void => {
-    if (event.key !== STORAGE_KEY) return;
-    snapshot = readStorage();
+    if (!event.key?.startsWith(STORAGE_KEY_PREFIX)) return;
+    snapshots.delete(event.key);
     listener();
   };
   window.addEventListener("storage", onStorage);
@@ -60,30 +67,48 @@ function toSaved(mission: Mission): SavedMission {
 }
 
 export interface SavedMissionsApi {
+  /** Saving needs an account: signed-out visitors see no save button and no list. */
+  enabled: boolean;
   saved: SavedMission[];
   isSaved: (missionId: string) => boolean;
   toggle: (mission: Mission) => void;
   remove: (missionId: string) => void;
 }
 
-/** Saved missions live in this browser only; there are no accounts in v1. */
+/** Saved missions are kept in this browser, one list per signed-in account. */
 export function useSavedMissions(): SavedMissionsApi {
-  const saved = useSyncExternalStore(subscribe, getSnapshot, () => EMPTY);
+  const userId = useSessionUserId();
+  const storageKey = userId ? `${STORAGE_KEY_PREFIX}${userId}` : null;
+
+  const saved = useSyncExternalStore(
+    subscribe,
+    () => (storageKey ? getSnapshot(storageKey) : EMPTY),
+    () => EMPTY,
+  );
 
   const isSaved = useCallback((missionId: string) => saved.some((mission) => mission.id === missionId), [saved]);
 
-  const remove = useCallback((missionId: string) => {
-    write(getSnapshot().filter((mission) => mission.id !== missionId));
-  }, []);
+  const remove = useCallback(
+    (missionId: string) => {
+      if (!storageKey) return;
+      write(storageKey, getSnapshot(storageKey).filter((mission) => mission.id !== missionId));
+    },
+    [storageKey],
+  );
 
-  const toggle = useCallback((mission: Mission) => {
-    const current = getSnapshot();
-    write(
-      current.some((entry) => entry.id === mission.id)
-        ? current.filter((entry) => entry.id !== mission.id)
-        : [toSaved(mission), ...current],
-    );
-  }, []);
+  const toggle = useCallback(
+    (mission: Mission) => {
+      if (!storageKey) return;
+      const current = getSnapshot(storageKey);
+      write(
+        storageKey,
+        current.some((entry) => entry.id === mission.id)
+          ? current.filter((entry) => entry.id !== mission.id)
+          : [toSaved(mission), ...current],
+      );
+    },
+    [storageKey],
+  );
 
-  return { saved, isSaved, toggle, remove };
+  return { enabled: storageKey !== null, saved, isSaved, toggle, remove };
 }

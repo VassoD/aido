@@ -16,7 +16,8 @@ interface MissionTicketProps {
   /** 1 for the best match; the badge shrinks with rank. */
   rank: number;
   isSaved: boolean;
-  onToggleSave: (mission: Mission) => void;
+  /** Absent when signed out: saving is tied to an account. */
+  onToggleSave?: (mission: Mission) => void;
   onApply: (mission: Mission) => void;
   enterDelayMs: number;
 }
@@ -181,21 +182,23 @@ function MissionTicketComponent({
               {isWebFind ? t("viewPage") : t("apply")}
             </a>
           )}
-          <button
-            type="button"
-            aria-pressed={isSaved}
-            onClick={() => onToggleSave(mission)}
-            className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 font-bold transition-colors ${
-              isSaved ? "bg-leaf-soft text-leaf" : "text-ink hover:bg-mist"
-            }`}
-          >
-            {isSaved && (
-              <svg aria-hidden="true" viewBox="0 0 20 20" className="size-4">
-                <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" pathLength="1" className="check-draw" />
-              </svg>
-            )}
-            {isSaved ? t("saved") : t("save")}
-          </button>
+          {onToggleSave && (
+            <button
+              type="button"
+              aria-pressed={isSaved}
+              onClick={() => onToggleSave(mission)}
+              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-2 font-bold transition-colors ${
+                isSaved ? "bg-leaf-soft text-leaf" : "text-ink hover:bg-mist"
+              }`}
+            >
+              {isSaved && (
+                <svg aria-hidden="true" viewBox="0 0 20 20" className="size-4">
+                  <path d="M4 10.5l4 4 8-9" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" pathLength="1" className="check-draw" />
+                </svg>
+              )}
+              {isSaved ? t("saved") : t("save")}
+            </button>
+          )}
           {source && (
             <span className="ml-auto text-xs text-muted">{isWebFind ? t("webSource", { source }) : t("publishedOn", { source })}</span>
           )}

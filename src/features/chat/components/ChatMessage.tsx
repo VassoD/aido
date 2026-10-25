@@ -36,7 +36,7 @@ function TicketList({ items, savedMissions, onApply }: TicketListProps): React.R
           firstStep={firstStep}
           rank={index + 1}
           isSaved={savedMissions.isSaved(mission.id)}
-          onToggleSave={savedMissions.toggle}
+          onToggleSave={savedMissions.enabled ? savedMissions.toggle : undefined}
           onApply={onApply}
           enterDelayMs={index * TICKET_STAGGER_MS}
         />
