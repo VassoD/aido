@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 
 import { SpaceTabs, type SpaceSide } from "@/features/space/components/SpaceTabs";
-import { SignOutButton } from "@/features/ui/SignOutButton";
 import { PAGE_TITLE } from "@/features/ui/styles";
 
 interface SpaceHeaderProps {
@@ -20,10 +19,7 @@ export async function SpaceHeader({ side, title, email, details }: SpaceHeaderPr
         <div className="flex flex-wrap items-center gap-3">
           {typeof title === "string" ? <h1 className={PAGE_TITLE}>{title}</h1> : title}
         </div>
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-muted">
-          <span>{[details, email ? t("signedInAs", { email }) : null].filter(Boolean).join(" · ")}</span>
-          <SignOutButton />
-        </p>
+        <p className="text-muted">{[details, email ? t("signedInAs", { email }) : null].filter(Boolean).join(" · ")}</p>
       </div>
       <SpaceTabs active={side} />
     </div>
