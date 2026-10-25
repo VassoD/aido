@@ -46,3 +46,6 @@ next-env.d.ts
 
 # Remotion pitch video project, kept local for now
 /videos/
+
+# Stage demo notes, kept local
+/docs/DEMO.md
