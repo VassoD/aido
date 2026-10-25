@@ -43,3 +43,6 @@ next-env.d.ts
 
 # impeccable design tool working files
 .impeccable/
+
+# Remotion pitch video project, kept local for now
+/videos/
