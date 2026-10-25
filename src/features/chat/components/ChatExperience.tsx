@@ -14,6 +14,7 @@ import { Composer } from "@/features/chat/components/Composer";
 import { ProfileStrip } from "@/features/chat/components/ProfileStrip";
 import { SavedPanel } from "@/features/chat/components/SavedPanel";
 import { chatErrorCode } from "@/features/chat/error-code";
+import { useFollowBottom } from "@/features/chat/hooks/use-follow-bottom";
 import { useSavedMissions } from "@/features/chat/hooks/use-saved-missions";
 import type { MatchingAgentUIMessage } from "@/features/matching/matching-agent";
 import { DEFAULT_COUNTRY } from "@/features/missions/country-options";
@@ -41,7 +42,8 @@ export function ChatExperience(): React.ReactElement {
   const savedMissions = useSavedMissions();
   const [savedOpen, setSavedOpen] = useState(false);
   const [applyingTo, setApplyingTo] = useState<Mission | null>(null);
-  const endRef = useRef<HTMLDivElement>(null);
+  const conversationRef = useRef<HTMLElement>(null);
+  const composerRef = useRef<HTMLDivElement>(null);
 
   const transport = useMemo(
     () => new DefaultChatTransport<MatchingAgentUIMessage>({ api: "/api/chat", body: { locale, country: DEFAULT_COUNTRY } }),
@@ -53,8 +55,15 @@ export function ChatExperience(): React.ReactElement {
   const isBusy = status === "submitted" || status === "streaming";
   const profile = useMemo(() => latestSearchQuery(messages), [messages]);
   const hasConversation = messages.length > 0;
+  const { pin } = useFollowBottom(conversationRef, composerRef, hasConversation);
 
-  const send = useCallback((text: string) => void sendMessage({ text }), [sendMessage]);
+  const send = useCallback(
+    (text: string) => {
+      pin();
+      void sendMessage({ text });
+    },
+    [pin, sendMessage],
+  );
 
   const requestApplication = useCallback(
     (mission: Mission) => send(t("apply.chatRequest", { title: mission.title })),
@@ -83,10 +92,6 @@ export function ChatExperience(): React.ReactElement {
       if (result.ok) setApplyingTo(result.data);
     });
   }, [setMessages]);
-
-  useEffect(() => {
-    if (hasConversation) endRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
-  }, [messages.length, status, hasConversation]);
 
   const header = (
     <AppHeader savedCount={savedMissions.saved.length} onOpenSaved={() => setSavedOpen(true)} onRestart={restart} />
@@ -129,7 +134,7 @@ export function ChatExperience(): React.ReactElement {
       ) : (
         <>
           <div className="border-b border-line">{header}</div>
-          <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 pt-6 pb-6 sm:px-6">
+          <main ref={conversationRef} className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-6 px-4 pt-6 pb-6 sm:px-6">
             {messages.map((message) => (
               <ChatMessage
                 key={message.id}
@@ -161,10 +166,9 @@ export function ChatExperience(): React.ReactElement {
                 </button>
               </div>
             )}
-            <div ref={endRef} />
           </main>
 
-          <div className="sticky bottom-0 z-10 border-t border-line bg-paper/95 shadow-[0_-10px_30px_-20px_rgb(18_38_29/0.4)]">
+          <div ref={composerRef} className="sticky bottom-0 z-10 border-t border-line bg-paper/95 shadow-[0_-10px_30px_-20px_rgb(18_38_29/0.4)]">
             <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-4 py-3 sm:px-6">
               {profile && (
                 <ProfileStrip query={profile} disabled={isBusy} onRemove={(label) => send(t("profile.removeMessage", { label }))} />

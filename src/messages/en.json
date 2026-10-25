@@ -27,6 +27,7 @@
   },
   "profile": {
     "title": "What I understood",
+    "toggle": "What I understood ({count})",
     "remove": "Remove \"{label}\"",
     "removeMessage": "Stop taking this criterion into account: {label}",
     "remote": "Remote",

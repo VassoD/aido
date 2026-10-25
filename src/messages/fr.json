@@ -27,6 +27,7 @@
   },
   "profile": {
     "title": "Ce que j'ai compris",
+    "toggle": "Ce que j'ai compris ({count})",
     "remove": "Retirer « {label} »",
     "removeMessage": "Ne tiens plus compte de ce critère : {label}",
     "remote": "À distance",

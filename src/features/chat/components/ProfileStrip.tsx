@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { useId, useState } from "react";
 
 import { DEFAULT_RADIUS_KM, type MissionSearchQuery } from "@/features/missions/search-query";
 
@@ -42,16 +43,40 @@ function useCriteria(query: MissionSearchQuery): Criterion[] {
   return criteria;
 }
 
-/** What the assistant understood, as removable tags. Removing one asks Aido to search again without it. */
+/**
+ * What the assistant understood, as removable tags. Removing one asks Aido to search again without it.
+ * Collapsed by default so it does not compete with the conversation.
+ */
 export function ProfileStrip({ query, disabled, onRemove }: ProfileStripProps): React.ReactElement | null {
   const t = useTranslations("profile");
   const criteria = useCriteria(query);
+  const [expanded, setExpanded] = useState(false);
+  const listId = useId();
   if (criteria.length === 0) return null;
 
   return (
-    <section aria-label={t("title")} className="flex items-center gap-2 sm:flex-wrap">
-      <h2 className="mr-1 hidden shrink-0 text-sm text-muted sm:block">{t("title")}</h2>
-      <ul className="-mx-4 flex gap-2 overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0">
+    <section aria-label={t("title")} className="flex flex-col items-start gap-2">
+      <button
+        type="button"
+        aria-expanded={expanded}
+        aria-controls={listId}
+        onClick={() => setExpanded((open) => !open)}
+        className="inline-flex items-center gap-1 text-sm text-muted transition-colors hover:text-ink"
+      >
+        {t("toggle", { count: criteria.length })}
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 16 16"
+          className={`size-3.5 transition-transform motion-reduce:transition-none ${expanded ? "rotate-180" : ""}`}
+        >
+          <path d="M4 6l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </button>
+      <ul
+        id={listId}
+        hidden={!expanded}
+        className="-mx-4 flex gap-2 self-stretch overflow-x-auto px-4 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0"
+      >
         {criteria.map((criterion) => (
           <li key={criterion.key} className="shrink-0">
             <button
