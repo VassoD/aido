@@ -16,6 +16,8 @@ import { SavedPanel } from "@/features/chat/components/SavedPanel";
 import { chatErrorCode } from "@/features/chat/error-code";
 import { useFollowBottom } from "@/features/chat/hooks/use-follow-bottom";
 import { useSavedMissions } from "@/features/chat/hooks/use-saved-missions";
+import { ForAssociations } from "@/features/landing/components/ForAssociations";
+import { HowItWorks } from "@/features/landing/components/HowItWorks";
 import type { MatchingAgentUIMessage } from "@/features/matching/matching-agent";
 import { DEFAULT_COUNTRY } from "@/features/missions/country-options";
 import type { Mission } from "@/features/missions/mission";
@@ -154,6 +156,9 @@ export function ChatExperience(): React.ReactElement {
               ))}
             </ul>
           </main>
+
+          <HowItWorks />
+          <ForAssociations />
         </>
       ) : (
         <>

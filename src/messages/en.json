@@ -18,6 +18,55 @@
       "three": "I've never volunteered before, looking for a one-off action in Nantes"
     }
   },
+  "landing": {
+    "how": {
+      "eyebrow": "How it works",
+      "title": "Three minutes from wanting to help to applying.",
+      "steps": {
+        "tell": {
+          "title": "Tell us about you",
+          "body": "Where you are, what you care about, what you are good at, how much time you have. In your own words, no forms."
+        },
+        "match": {
+          "title": "Aido searches for you",
+          "body": "Across missions from associations on Aido, JeVeuxAider.gouv.fr and Service Civique, Aido picks a few and tells you why they fit."
+        },
+        "apply": {
+          "title": "Apply in one go",
+          "body": "Aido drafts your application from the conversation. You review it, send it, and the association replies right here."
+        }
+      },
+      "after": {
+        "title": "And after the mission?",
+        "body": "Every mission you complete earns a badge. Your profile shows your skills and the causes you care about, and you can add your LinkedIn.",
+        "cta": "See my space"
+      }
+    },
+    "associations": {
+      "eyebrow": "Are you an association?",
+      "title": "Post a mission in two minutes. Get applications that are ready to read.",
+      "lede": "Volunteers tell Aido what they want to do, and Aido suggests your missions. No more PDF forms, no more sorting applications one by one.",
+      "points": {
+        "draft": {
+          "title": "A few lines or your old PDF is enough",
+          "body": "Aido turns it into a clear listing, with two to four questions instead of a long form."
+        },
+        "verified": {
+          "title": "Verified association",
+          "body": "Your RNA or SIREN number is checked, and volunteers see the badge on your missions."
+        },
+        "summary": {
+          "title": "A summary for every applicant",
+          "body": "See at a glance why the person fits, their skills and the missions they have already done."
+        },
+        "inbox": {
+          "title": "Everything in one inbox",
+          "body": "Accept, decline, reply, then mark the mission as done to thank the volunteer."
+        }
+      },
+      "cta": "Create my association's space"
+    }
+  },
   "composer": {
     "placeholder": "For example: I live in Lille, I speak English and have two evenings a week",
     "placeholderFollowUp": "Refine or change a criterion",

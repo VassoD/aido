@@ -18,6 +18,55 @@
       "three": "Je n'ai jamais fait de bénévolat, je cherche une action ponctuelle à Nantes"
     }
   },
+  "landing": {
+    "how": {
+      "eyebrow": "Comment ça marche",
+      "title": "Trois minutes entre l'envie d'aider et la candidature.",
+      "steps": {
+        "tell": {
+          "title": "Racontez-vous",
+          "body": "Où vous êtes, ce qui vous touche, ce que vous savez faire, le temps que vous avez. Avec vos mots, sans formulaire."
+        },
+        "match": {
+          "title": "Aido cherche pour vous",
+          "body": "Parmi les missions des associations sur Aido, de JeVeuxAider.gouv.fr et du Service Civique, Aido en garde quelques-unes et vous dit pourquoi elles vous vont."
+        },
+        "apply": {
+          "title": "Postulez en une fois",
+          "body": "Aido prépare votre candidature à partir de la conversation. Vous relisez, vous envoyez, et l'association vous répond ici."
+        }
+      },
+      "after": {
+        "title": "Et après la mission ?",
+        "body": "Chaque mission réalisée vous rapporte un badge. Votre profil montre vos compétences et ce qui vous tient à cœur, et vous pouvez y ajouter votre LinkedIn.",
+        "cta": "Voir mon espace"
+      }
+    },
+    "associations": {
+      "eyebrow": "Vous êtes une association ?",
+      "title": "Publiez une mission en deux minutes. Recevez des candidatures prêtes à lire.",
+      "lede": "Les bénévoles décrivent leurs envies à Aido, Aido leur propose vos missions. Plus de PDF à remplir, plus de candidatures à trier une par une.",
+      "points": {
+        "draft": {
+          "title": "Un texte ou votre ancien PDF suffit",
+          "body": "Aido en fait une annonce claire, avec deux à quatre questions au lieu d'un long formulaire."
+        },
+        "verified": {
+          "title": "Association vérifiée",
+          "body": "Votre numéro RNA ou SIREN est contrôlé, et les bénévoles voient le badge sur vos missions."
+        },
+        "summary": {
+          "title": "Un résumé pour chaque candidat",
+          "body": "Vous voyez d'un coup d'œil pourquoi la personne vous correspond, ses compétences et ses missions passées."
+        },
+        "inbox": {
+          "title": "Tout dans une boîte de réception",
+          "body": "Acceptez, déclinez, répondez, puis marquez la mission comme réalisée pour remercier le bénévole."
+        }
+      },
+      "cta": "Créer l'espace de mon association"
+    }
+  },
   "composer": {
     "placeholder": "Par exemple : je vis à Lille, je parle anglais et j'ai deux soirs par semaine",
     "placeholderFollowUp": "Précisez ou changez un critère",
