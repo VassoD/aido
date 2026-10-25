@@ -11,6 +11,8 @@ const AI_TIMEOUT_MS = 90_000;
 interface DraftMissionInput {
   organizationName: string;
   organizationCity?: string;
+  /** The association's own profile text, used for the "who it helps" paragraph. */
+  organizationDescription?: string;
   locale: AppLocale;
   text: string;
   pdf?: { data: Uint8Array; filename: string };
@@ -20,7 +22,9 @@ const LANGUAGE_NAME: Record<AppLocale, string> = { fr: "French", en: "English" }
 
 function instructions(input: DraftMissionInput): string {
   const today = new Date().toISOString().slice(0, 10);
-  return `You help a small nonprofit, "${input.organizationName}"${input.organizationCity ? ` based in ${input.organizationCity}` : ""}, publish a volunteering mission on Aido.
+  return `You help a small nonprofit, "${input.organizationName}"${input.organizationCity ? ` based in ${input.organizationCity}` : ""}, publish a volunteering mission on Aido.${
+    input.organizationDescription ? `\nHow they describe themselves: ${input.organizationDescription}` : ""
+  }
 They give you a rough description and/or their existing volunteer application form (often a long PDF). Turn it into a mission volunteers will actually want to read, and a tiny application form that replaces the PDF.
 
 Mission:

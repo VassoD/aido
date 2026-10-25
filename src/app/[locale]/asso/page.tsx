@@ -3,12 +3,14 @@ import { Suspense } from "react";
 
 import { SignInForm } from "@/features/auth/SignInForm";
 import { MissionStatusToggle } from "@/features/organizations/components/MissionStatusToggle";
+import { OrganizationProfileCard } from "@/features/organizations/components/OrganizationProfileCard";
 import { OrganizationOnboarding } from "@/features/organizations/components/OrganizationOnboarding";
 import { VerifiedBadge } from "@/features/organizations/components/VerifiedBadge";
 import { getOwnedOrganization, listOrganizationMissions } from "@/features/organizations/queries";
+import { SpaceHeader } from "@/features/space/components/SpaceHeader";
+import { StatTiles } from "@/features/space/components/StatTiles";
 import { PageSkeleton } from "@/features/ui/PageSkeleton";
 import { SiteHeader } from "@/features/ui/SiteHeader";
-import { SignOutButton } from "@/features/ui/SignOutButton";
 import { CARD, PAGE_TITLE, PRIMARY_BUTTON } from "@/features/ui/styles";
 import { Link } from "@/i18n/navigation";
 import { createSupabaseServerClient, getSessionUser } from "@/lib/supabase/server";
@@ -31,27 +33,44 @@ async function AssociationHome({ locale }: { locale: string }): Promise<React.Re
   const organization = await getOwnedOrganization(supabase, user.id);
   if (!organization) {
     return (
-      <div className="flex flex-col gap-6">
-        <h1 className={PAGE_TITLE}>{t("signInTitle")}</h1>
+      <div className="flex flex-col gap-8">
+        <SpaceHeader side="association" title={t("signInTitle")} email={user.email} />
         <p className="max-w-[60ch] text-lg text-muted">{t("pitch")}</p>
         <OrganizationOnboarding />
-        <SignOutButton />
       </div>
     );
   }
 
   const missions = await listOrganizationMissions(supabase, organization.id);
+  const tSpace = await getTranslations("space");
+  const publishedCount = missions.filter((mission) => mission.status === "published").length;
+  const applicantCount = missions.reduce((total, mission) => total + mission.applicantCount, 0);
+  const pendingCount = missions.reduce((total, mission) => total + mission.pendingCount, 0);
+
   return (
     <div className="flex flex-col gap-8">
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-wrap items-center gap-3">
-          <h1 className={PAGE_TITLE}>{organization.name}</h1>
-          {organization.verified && <VerifiedBadge />}
-        </div>
-        <p className="text-muted">
-          {[organization.city, user.email].filter(Boolean).join(", ")}
-        </p>
-      </div>
+      <SpaceHeader
+        side="association"
+        title={
+          <>
+            <h1 className={PAGE_TITLE}>{organization.name}</h1>
+            {organization.verified && <VerifiedBadge />}
+          </>
+        }
+        details={organization.city}
+        email={user.email}
+      />
+
+      {missions.length > 0 && (
+        <StatTiles
+          label={tSpace("stats.label")}
+          stats={[
+            { label: tSpace("stats.online"), value: publishedCount },
+            { label: tSpace("stats.applications"), value: applicantCount },
+            { label: tSpace("stats.toReview"), value: pendingCount, highlight: true },
+          ]}
+        />
+      )}
 
       <section className="flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
@@ -102,7 +121,13 @@ async function AssociationHome({ locale }: { locale: string }): Promise<React.Re
           </ul>
         )}
       </section>
-      <SignOutButton />
+
+      <OrganizationProfileCard
+        description={organization.description}
+        website={organization.website}
+        contactEmail={organization.contact_email}
+        city={organization.city}
+      />
     </div>
   );
 }

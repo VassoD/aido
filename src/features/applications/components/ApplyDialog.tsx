@@ -55,6 +55,7 @@ export function ApplyDialog({ mission, transcript, onClose, onBeforeSignIn }: Ap
         const prefill = result.data;
         setFirstName(prefill.firstName ?? "");
         setCity(prefill.city ?? "");
+        setPhone(prefill.phone ?? "");
         setMotivation(prefill.motivation ?? "");
         setAnswers(
           Object.fromEntries(prefill.answers.filter((entry) => entry.answer).map((entry) => [entry.questionId, entry.answer ?? ""])),

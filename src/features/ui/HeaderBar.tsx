@@ -52,7 +52,7 @@ export function HeaderBar({ onLogoClick, savedCount, onOpenSaved }: HeaderBarPro
         className="col-span-3 row-start-2 -mx-4 flex overflow-x-auto px-2.5 text-sm [mask-image:linear-gradient(to_right,black_85%,transparent)] [scrollbar-width:none] sm:col-span-1 sm:col-start-2 sm:row-start-1 sm:mx-0 sm:justify-end sm:px-0 sm:[mask-image:none]"
       >
         <Link href="/me" className={NAV_ITEM}>
-          {t("myApplications")}
+          {t("mySpace")}
         </Link>
         <Link href="/asso" className={NAV_ITEM}>
           {t("associations")}

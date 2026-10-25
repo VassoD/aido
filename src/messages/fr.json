@@ -134,11 +134,11 @@
     "ai": "Les suggestions sont générées par une IA et peuvent contenir des erreurs : l'association confirme toujours les détails."
   },
   "nav": {
-    "associations": "Espace associations",
-    "myApplications": "Mes candidatures",
+    "associations": "Associations",
     "signOut": "Se déconnecter",
     "home": "Trouver une mission",
-    "label": "Navigation principale"
+    "label": "Navigation principale",
+    "mySpace": "Mon espace"
   },
   "auth": {
     "title": "Connexion",
@@ -307,5 +307,63 @@
     "sentOn": "Envoyée le {date}",
     "reply": "Écrire à l'association",
     "withdraw": "Retirer ma candidature"
+  },
+  "space": {
+    "eyebrow": "Mon espace",
+    "title": "Mon espace",
+    "hello": "Bonjour {name}",
+    "signedInAs": "Connecté·e avec {email}",
+    "signInLede": "Vos candidatures, vos échanges avec les associations et votre profil, au même endroit. On vous envoie un lien de connexion par e-mail, sans mot de passe.",
+    "assoPrompt": "Vous représentez une association ?",
+    "assoPromptBody": "Publiez vos missions et recevez des candidatures prêtes à lire, côté association.",
+    "assoPromptCta": "Aller côté association",
+    "tabs": {
+      "label": "Changer d'espace",
+      "volunteer": "Bénévole",
+      "association": "Association"
+    },
+    "stats": {
+      "label": "En un coup d'œil",
+      "sent": "Candidatures",
+      "pending": "En attente",
+      "accepted": "Acceptées",
+      "online": "Missions en ligne",
+      "applications": "Candidatures",
+      "toReview": "À traiter"
+    },
+    "saved": "Missions gardées",
+    "savedHint": "Gardées sur cet appareil.",
+    "savedEmpty": "Rien de gardé pour l'instant. Touchez « Garder » sur une mission pendant votre recherche pour la retrouver ici.",
+    "editable": {
+      "edit": "Modifier",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler",
+      "saved": "C'est enregistré.",
+      "error": "L'enregistrement n'a pas fonctionné. Réessayez.",
+      "empty": "Non renseigné"
+    }
+  },
+  "volunteerProfile": {
+    "title": "Mon profil",
+    "hint": "Remplissez-le une fois, vos prochaines candidatures seront pré-remplies.",
+    "firstName": "Prénom",
+    "city": "Ville",
+    "phone": "Téléphone",
+    "phoneHint": "Partagé uniquement avec les associations auxquelles vous postulez.",
+    "about": "Quelques mots sur moi",
+    "aboutPlaceholder": "Ce que vous aimez faire, vos compétences, vos disponibilités…"
+  },
+  "orgProfile": {
+    "title": "Profil de l'association",
+    "hint": "À jour, il vous évite de tout réécrire quand vous publiez une mission.",
+    "contactEmail": "E-mail de contact",
+    "contactEmailHint": "Les nouvelles candidatures et les messages des bénévoles arrivent ici.",
+    "city": "Ville",
+    "website": "Site web",
+    "description": "Présentation de l'association",
+    "descriptionPlaceholder": "Votre cause, qui vous aidez, la place des bénévoles…",
+    "descriptionHint": "L'IA s'en sert pour rédiger vos missions.",
+    "invalid": "Vérifiez l'e-mail et l'adresse du site (elle doit commencer par https://)."
   }
 }

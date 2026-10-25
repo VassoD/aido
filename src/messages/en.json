@@ -135,10 +135,10 @@
   },
   "nav": {
     "associations": "For nonprofits",
-    "myApplications": "My applications",
     "signOut": "Sign out",
     "home": "Find a mission",
-    "label": "Main navigation"
+    "label": "Main navigation",
+    "mySpace": "My space"
   },
   "auth": {
     "title": "Sign in",
@@ -307,5 +307,63 @@
     "sentOn": "Sent on {date}",
     "reply": "Write to the organization",
     "withdraw": "Withdraw my application"
+  },
+  "space": {
+    "eyebrow": "My space",
+    "title": "My space",
+    "hello": "Hello {name}",
+    "signedInAs": "Signed in as {email}",
+    "signInLede": "Your applications, your conversations with organizations and your profile, all in one place. We'll email you a sign-in link, no password needed.",
+    "assoPrompt": "Do you run a nonprofit?",
+    "assoPromptBody": "Post your missions and read ready-to-review applications on the association side.",
+    "assoPromptCta": "Go to the association side",
+    "tabs": {
+      "label": "Switch side",
+      "volunteer": "Volunteer",
+      "association": "Association"
+    },
+    "stats": {
+      "label": "At a glance",
+      "sent": "Applications",
+      "pending": "Awaiting reply",
+      "accepted": "Accepted",
+      "online": "Missions online",
+      "applications": "Applications",
+      "toReview": "To review"
+    },
+    "saved": "Saved missions",
+    "savedHint": "Kept on this device.",
+    "savedEmpty": "Nothing saved yet. Tap Save on a mission during your search to find it here.",
+    "editable": {
+      "edit": "Edit",
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "saved": "Saved.",
+      "error": "We couldn't save that. Try again.",
+      "empty": "Not filled in"
+    }
+  },
+  "volunteerProfile": {
+    "title": "My profile",
+    "hint": "Fill it in once and your next applications are pre-filled.",
+    "firstName": "First name",
+    "city": "City",
+    "phone": "Phone",
+    "phoneHint": "Only shared with organizations you apply to.",
+    "about": "A few words about me",
+    "aboutPlaceholder": "What you enjoy, your skills, when you're free…"
+  },
+  "orgProfile": {
+    "title": "Organization profile",
+    "hint": "Kept up to date, it saves you retyping when you post a mission.",
+    "contactEmail": "Contact email",
+    "contactEmailHint": "New applications and volunteer messages arrive here.",
+    "city": "City",
+    "website": "Website",
+    "description": "About the organization",
+    "descriptionPlaceholder": "Your cause, who you help, how volunteers fit in…",
+    "descriptionHint": "The AI uses it to write your missions.",
+    "invalid": "Check the email and the website address (it should start with https://)."
   }
 }

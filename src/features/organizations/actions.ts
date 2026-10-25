@@ -84,6 +84,7 @@ export async function draftMissionAction(formData: FormData): Promise<ActionResu
     const draft = await draftMissionWithAi({
       organizationName: organization.name,
       organizationCity: organization.city ?? undefined,
+      organizationDescription: organization.description ?? undefined,
       locale: parsed.data.locale,
       text: parsed.data.text,
       pdf: pdf ? { data: new Uint8Array(await pdf.arrayBuffer()), filename: pdf.name } : undefined,
@@ -162,5 +163,45 @@ export async function setMissionStatusAction(
     .eq("id", missionId);
   if (error) return fail("INTERNAL_ERROR");
   if (!count) return fail("NOT_FOUND");
+  return ok(null);
+}
+
+const organizationProfileSchema = z.object({
+  description: z.string().trim().max(2000),
+  website: z.union([z.literal(""), z.url({ protocol: /^https?$/ }).max(300)]),
+  contactEmail: z.union([z.literal(""), z.email().max(320)]),
+  city: z.string().trim().max(120),
+});
+export type OrganizationProfileInput = z.infer<typeof organizationProfileSchema>;
+
+/** Verification columns are not granted to clients, so this can only touch the public profile. */
+export async function updateOrganizationProfileAction(input: OrganizationProfileInput): Promise<ActionResult<null>> {
+  const parsed = organizationProfileSchema.safeParse({
+    ...input,
+    website: typeof input?.website === "string" ? input.website.trim() : input?.website,
+    contactEmail: typeof input?.contactEmail === "string" ? input.contactEmail.trim() : input?.contactEmail,
+  });
+  if (!parsed.success) return fail("INVALID_INPUT");
+  const { description, website, contactEmail, city } = parsed.data;
+
+  const supabase = await createSupabaseServerClient();
+  const user = await getSessionUser(supabase);
+  if (!user) return fail("AUTH_REQUIRED");
+  const organization = await getOwnedOrganization(supabase, user.id);
+  if (!organization) return fail("NOT_FOUND");
+
+  const { error } = await supabase
+    .from("organizations")
+    .update({
+      description: description || null,
+      website: website || null,
+      contact_email: contactEmail || null,
+      city: city || null,
+    })
+    .eq("id", organization.id);
+  if (error) {
+    logger.error("organizations.profile_update_failed", { organizationId: organization.id, code: error.code });
+    return fail("INTERNAL_ERROR");
+  }
   return ok(null);
 }

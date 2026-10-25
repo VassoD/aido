@@ -7,6 +7,7 @@ import { prefillApplication, summarizeFit, type ApplicationPrefill } from "@/fea
 import { getInAppMission } from "@/features/missions/aido-missions";
 import { notifyApplicationDecision, notifyNewApplication, notifyNewMessage } from "@/features/notifications/notify";
 import type { Mission } from "@/features/missions/mission";
+import { getVolunteerProfile, type VolunteerProfile } from "@/features/volunteers/queries";
 import { fail, ok, type ActionResult } from "@/lib/action-result";
 import { logger } from "@/lib/logger";
 import { RateLimiter } from "@/lib/rate-limit";
@@ -20,10 +21,23 @@ const PREFILL_LIMIT = 20;
 const PREFILL_WINDOW_MS = 10 * 60 * 1000;
 const prefillLimiter = new RateLimiter(PREFILL_LIMIT, PREFILL_WINDOW_MS);
 
-export async function prefillApplicationAction(
-  missionId: string,
-  transcript: string,
-): Promise<ActionResult<ApplicationPrefill>> {
+export interface ApplyPrefill extends ApplicationPrefill {
+  phone: string | null;
+}
+
+async function loadSavedProfile(): Promise<VolunteerProfile | null> {
+  try {
+    const supabase = await createSupabaseServerClient();
+    const user = await getSessionUser(supabase);
+    return user ? await getVolunteerProfile(supabase, user.id) : null;
+  } catch (error) {
+    logger.warn("applications.profile_load_failed", { error: String(error) });
+    return null;
+  }
+}
+
+/** What the volunteer just said in the chat wins; their saved profile fills the gaps. */
+export async function prefillApplicationAction(missionId: string, transcript: string): Promise<ActionResult<ApplyPrefill>> {
   if (!z.uuid().safeParse(missionId).success || typeof transcript !== "string") return fail("INVALID_INPUT");
   try {
     prefillLimiter.consume(await requestIp());
@@ -33,14 +47,26 @@ export async function prefillApplicationAction(
 
   const mission = await getInAppMission(missionId);
   if (!mission) return fail("NOT_FOUND");
-  if (!transcript.trim()) return ok({ firstName: null, city: null, answers: [], motivation: null });
 
-  try {
-    return ok(await prefillApplication(mission, transcript.slice(-MAX_TRANSCRIPT_CHARS)));
-  } catch (error) {
-    logger.warn("applications.prefill_failed", { missionId, error: String(error) });
-    return fail("AI_UNAVAILABLE");
-  }
+  const emptyPrefill: ApplicationPrefill = { firstName: null, city: null, answers: [], motivation: null };
+  const [prefill, profile] = await Promise.all([
+    transcript.trim()
+      ? prefillApplication(mission, transcript.slice(-MAX_TRANSCRIPT_CHARS)).catch((error: unknown) => {
+          logger.warn("applications.prefill_failed", { missionId, error: String(error) });
+          return null;
+        })
+      : emptyPrefill,
+    loadSavedProfile(),
+  ]);
+  if (!prefill && !profile) return fail("AI_UNAVAILABLE");
+
+  const base = prefill ?? emptyPrefill;
+  return ok({
+    ...base,
+    firstName: base.firstName ?? profile?.firstName ?? null,
+    city: base.city ?? profile?.city ?? null,
+    phone: profile?.phone ?? null,
+  });
 }
 
 const submitSchema = z.object({
