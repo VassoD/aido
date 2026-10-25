@@ -1,5 +1,7 @@
 import "server-only";
 
+import type { AppLocale } from "@/i18n/routing";
+
 /** Escapes text placed inside the HTML emails; every dynamic value goes through this. */
 function escapeHtml(value: string): string {
   return value
@@ -16,12 +18,22 @@ interface Layout {
   quote?: string;
   actionLabel: string;
   actionUrl: string;
+  /** Notifications are French for now; the sign-in email follows the interface language. */
+  locale?: AppLocale;
 }
 
+const FOOTER: Record<AppLocale, string> = {
+  fr: "Aido, le bénévolat qui vous ressemble.",
+  en: "Aido, volunteering that fits you.",
+};
+
 /** One simple, table-free layout that renders in every mail client, in Aido's colours. */
-function renderLayout({ heading, paragraphs, quote, actionLabel, actionUrl }: Layout): { html: string; text: string } {
+function renderLayout({ heading, paragraphs, quote, actionLabel, actionUrl, locale = "fr" }: Layout): {
+  html: string;
+  text: string;
+} {
   const html = `<!doctype html>
-<html lang="fr">
+<html lang="${locale}">
 <body style="margin:0;padding:24px;background:#fff3c9;font-family:Arial,Helvetica,sans-serif;color:#24342c;">
   <div style="max-width:520px;margin:0 auto;background:#ffffff;border-radius:20px;padding:28px;">
     <p style="margin:0 0 20px;font-size:22px;font-weight:800;color:#12261d;">aido</p>
@@ -32,11 +44,37 @@ function renderLayout({ heading, paragraphs, quote, actionLabel, actionUrl }: La
       <a href="${escapeHtml(actionUrl)}" style="display:inline-block;background:#ffcd38;color:#0b1913;font-weight:700;text-decoration:none;padding:12px 22px;border-radius:999px;">${escapeHtml(actionLabel)}</a>
     </p>
   </div>
-  <p style="max-width:520px;margin:16px auto 0;font-size:12px;color:#5b6a62;text-align:center;">Aido, le bénévolat qui vous ressemble.</p>
+  <p style="max-width:520px;margin:16px auto 0;font-size:12px;color:#5b6a62;text-align:center;">${FOOTER[locale]}</p>
 </body>
 </html>`;
   const text = [heading, "", ...paragraphs, ...(quote ? ["", `« ${quote} »`] : []), "", `${actionLabel} : ${actionUrl}`].join("\n");
   return { html, text };
+}
+
+const SIGN_IN_COPY: Record<AppLocale, { subject: string; heading: string; paragraphs: string[]; actionLabel: string }> = {
+  fr: {
+    subject: "Votre lien de connexion à Aido",
+    heading: "Connexion à Aido",
+    paragraphs: [
+      "Cliquez sur le bouton pour vous connecter. Pas de mot de passe : le lien ne sert qu'une fois.",
+      "Si vous n'avez rien demandé, ignorez simplement cet email.",
+    ],
+    actionLabel: "Me connecter",
+  },
+  en: {
+    subject: "Your Aido sign-in link",
+    heading: "Sign in to Aido",
+    paragraphs: [
+      "Click the button to sign in. No password: the link works only once.",
+      "If you didn't ask for it, just ignore this email.",
+    ],
+    actionLabel: "Sign me in",
+  },
+};
+
+export function signInEmail(input: { signInUrl: string; locale: AppLocale }): { subject: string; html: string; text: string } {
+  const { subject, ...copy } = SIGN_IN_COPY[input.locale];
+  return { subject, ...renderLayout({ ...copy, actionUrl: input.signInUrl, locale: input.locale }) };
 }
 
 export function newApplicationEmail(input: {
