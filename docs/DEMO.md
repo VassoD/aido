@@ -1,39 +1,49 @@
 # Script de démo (environ 4 minutes)
 
+## Avant de monter sur scène
+
+- Deux profils de navigateur déjà connectés : un compte association (avec l'« Association de démonstration ») et un autre compte pour la bénévole. Aucun lien email à attendre pendant la démo.
+- Le formulaire PDF de démo est prêt sur le bureau : `docs/demo/fiche-inscription-benevole.pdf` (2 pages, une trentaine de champs, 4 pièces à joindre).
+- Une vidéo de secours de tout le parcours est enregistrée, au cas où le réseau ou une source de données tombe.
+- Une recherche prend environ 20 secondes : c'est le moment de commenter ce qu'Aido fait en parallèle.
+
 ## Le problème (30 s)
 
 > Des milliers de missions de bénévolat existent, mais les trouver est pénible : trop de choix, des compétences inutilisées, des engagements flous. Et quand on trouve, on tombe sur des sites d'associations difficiles à utiliser et des formulaires PDF à imprimer et signer. Les petites associations, elles, n'ont pas le temps de rédiger des annonces ni de trier les candidatures.
 
 ## Côté association (1 min 15)
 
-Préparation : être connectée avec son compte, association déjà créée (ou montrer la création avec `W000000000`).
-
-1. **Espace associations** : le badge Vérifiée vient du registre officiel des entreprises et associations.
-2. **Publier une mission** : coller un texte brouillon qui renvoie vers un formulaire PDF, par exemple :
-   > On cherche des bénévoles le mardi soir 18h-21h pour la distribution alimentaire au 12 rue de la Roquette 75011. Pour postuler, remplir notre formulaire PDF (nom, adresse, date de naissance, copie de pièce d'identité, disponibilités, expériences, permis B, langues) et le renvoyer signé.
-3. Montrer le résultat : une annonce claire et **2 questions au lieu d'un formulaire de 10 champs**. Publier.
+1. **La vérification** (dans le profil bénévole, ou une fenêtre privée connectée à un compte sans association) : dans **Mon espace**, onglet **Association**, taper le RNA du Secours populaire français à Paris, `W751004625`, puis **Vérifier**. Aido interroge le registre officiel et affiche « Trouvée dans le registre officiel ». Ne pas confirmer : c'est seulement pour montrer la vérification.
+   > Une association ne peut publier qu'après cette vérification. Pour la démo, on continue avec notre association de test.
+2. **Publier une mission** (compte association) : déposer `fiche-inscription-benevole.pdf`, sans rien écrire. Montrer rapidement le PDF avant : état civil, pièce d'identité, justificatif de domicile, photo, signature.
+3. Montrer le résultat (environ 10 s) : une annonce claire et **3 questions au lieu d'un formulaire de deux pages**. Aido ne demande ni adresse, ni date de naissance, ni pièce d'identité. Tout reste modifiable. Publier.
 4. Le bandeau confirme que la mission apparaît déjà dans les recherches des bénévoles autour de Paris.
+
+Si l'envoi du PDF échoue, coller ce texte à la place :
+> On cherche des bénévoles le mardi soir 18h-21h pour la distribution alimentaire au 12 rue de la Roquette 75011. Pour postuler, remplir notre formulaire PDF (nom, adresse, date de naissance, copie de pièce d'identité, disponibilités, expériences, permis B, langues) et le renvoyer signé.
 
 ## Côté bénévole (1 min 45)
 
-1. Cliquer **Voir comme un bénévole**, puis écrire :
+1. Dans le profil bénévole, ouvrir l'accueil et écrire :
    > Je m'appelle Camille, j'habite Paris 11e, je suis libre le mardi soir et j'aimerais aider pour de l'aide alimentaire.
-2. Montrer :
+2. Pendant la recherche (environ 20 s) : « Aido cherche en même temps dans les missions publiées sur Aido, sur JeVeuxAider et le Service Civique, et sur le web. Chaque lien trouvé sur le web est vérifié avant d'être affiché. »
+3. Montrer :
    - les critères compris en étiquettes (supprimables) ;
    - la mission Aido **en premier**, avec « Candidature en 1 clic » ;
-   - les missions JeVeuxAider et Service Civique, puis **« Aussi trouvé sur le web »** (liens vérifiés) ;
+   - les missions JeVeuxAider et Service Civique, puis **« Aussi trouvé sur le web »** ;
    - la jauge d'engagement sur chaque carte.
-3. Cliquer **Postuler sur Aido** : Aido pose seulement la question manquante, répondre en une phrase.
-4. **La candidature est rédigée** : réponses et motivation, modifiables. Cliquer **Envoyer**.
+4. Cliquer **Postuler sur Aido** : Aido sait déjà que Camille est libre le mardi soir et ne pose que les questions restantes. Répondre en une phrase, par exemple « dès le 4 novembre, et oui je peux porter des cartons ».
+5. **La candidature est rédigée** : réponses et motivation, modifiables. Cliquer **Envoyer**.
 
 ## La boucle se ferme (30 s)
 
-1. **Espace associations**, ouvrir la mission : la candidature est là, avec le **résumé IA** de l'adéquation.
+1. Compte association, ouvrir la mission : la candidature est là, avec le **résumé IA** de l'adéquation.
 2. Accepter et écrire « Bienvenue, rendez-vous mardi à 18h ! ».
-3. **Mes candidatures** : statut Acceptée et le message.
+3. Profil bénévole, **Mon espace**, section **Mes candidatures** : statut Acceptée et le message.
 
 ## Pour finir (30 s)
 
 - Données réelles : JeVeuxAider et Service Civique, plus la recherche web GPT, plus les missions publiées sur Aido.
+- GPT à chaque étape : comprendre la personne, chercher sur le web, lire un PDF, rédiger la candidature, résumer l'adéquation pour l'association.
 - Conçu pour tous les pays : un adaptateur par source de données, le reste ne change pas.
-- Prochaines étapes : clé API Engagement officielle, emails transactionnels, autres pays.
+- Prochaines étapes : clé API Engagement officielle, pages mission publiques à partager, rappels après acceptation, autres pays.
