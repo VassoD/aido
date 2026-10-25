@@ -74,7 +74,12 @@ async function AssociationHome({ locale }: { locale: string }): Promise<React.Re
                   >
                     {mission.title}
                   </Link>
-                  <span className="rounded-full bg-paper px-2.5 py-0.5 text-sm text-muted">
+                  <span
+                    className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-0.5 text-sm font-bold ${
+                      mission.status === "published" ? "bg-leaf-soft text-leaf" : "bg-mist text-muted"
+                    }`}
+                  >
+                    {mission.status === "published" && <span aria-hidden="true" className="size-2 rounded-full bg-leaf" />}
                     {t(`dashboard.status.${mission.status as "published" | "draft" | "closed"}`)}
                   </span>
                 </div>

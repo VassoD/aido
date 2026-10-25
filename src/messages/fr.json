@@ -129,7 +129,7 @@
     "CONFLICT": "Cela existe déjà."
   },
   "footer": {
-    "attribution": "Données : missions publiées sur JeVeuxAider.gouv.fr et Service Civique. Aido ne publie pas de missions et ne transmet pas vos messages aux associations.",
+    "attribution": "Missions publiées sur Aido par les associations, ainsi que sur JeVeuxAider.gouv.fr et le Service Civique. Aido ne transmet vos coordonnées qu'aux associations auxquelles vous postulez.",
     "ai": "Les suggestions sont générées par une IA et peuvent contenir des erreurs : l'association confirme toujours les détails."
   },
   "nav": {
@@ -179,9 +179,9 @@
       "applicants": "{count, plural, =0 {Aucune candidature} one {# candidature} other {# candidatures}}",
       "pending": "{count, plural, =0 {} one {dont # à traiter} other {dont # à traiter}}",
       "status": {
-        "published": "En ligne",
+        "published": "Visible par les bénévoles",
         "draft": "Brouillon",
-        "closed": "Fermée"
+        "closed": "Fermée, invisible"
       },
       "close": "Fermer la mission",
       "reopen": "Remettre en ligne",
